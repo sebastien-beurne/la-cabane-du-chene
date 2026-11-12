@@ -1,0 +1,9 @@
+{
+  "name": "la-cabane-du-chene",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "python scripts/preview.py",
+    "build": "npm --prefix frontend run build"
+  }
+}

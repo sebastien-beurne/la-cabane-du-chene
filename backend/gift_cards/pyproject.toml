@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cabane-gift-cards"
+version = "0.1.0"
+description = "Reusable FastAPI/MongoDB gift-card module with Stripe checkout"
+requires-python = ">=3.10"
+dependencies = ["fastapi>=0.110,<1", "pydantic>=2.6,<3", "email-validator>=2.2,<3", "motor>=3.7,<4", "stripe==16.1.0"]
+
+[tool.setuptools]
+packages = ["gift_cards"]
+package-dir = { "gift_cards" = "." }
+include-package-data = false
+

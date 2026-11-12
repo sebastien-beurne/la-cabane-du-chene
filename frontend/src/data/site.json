@@ -1,0 +1,446 @@
+{
+  "content": {
+    "general": {
+      "name": "La Cabane du Chêne",
+      "tagline": "Cabane avec spa privatif en Moselle",
+      "city": "Valmunster",
+      "region": "Moselle, Lorraine",
+      "country": "France",
+      "email": "contact@lacabaneduchene.fr",
+      "phone": "+33 6 22 80 66 48",
+      "public_address": "8 rue de la forêt, 57220 Valmunster",
+      "maps_query": "La Cabane du Chêne, 8 rue de la forêt, 57220 Valmunster",
+      "map_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2604.749441722558!2d6.503507177071379!3d49.24323947354579!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479503632b7ce453%3A0x602fd2342194271f!2sLa%20cabane%20du%20ch%C3%AAne!5e0!3m2!1sfr!2sfr!4v1709283130865!5m2!1sfr!2sfr",
+      "latitude": "49.24323947354579",
+      "longitude": "6.503507177071379",
+      "instagram": "",
+      "facebook": "",
+      "airbnb_url": "",
+      "booking_url": "",
+      "abracadaroom_url": "",
+      "greengo_url": "",
+      "ga_id": "",
+      "gsc_verification": "",
+      "website": "https://lacabaneduchene.fr",
+      "logo": "/images/chene/logo-chene.webp"
+    },
+    "home": {
+      "hero_title": "Le calme, tout simplement.",
+      "hero_subtitle": "Une cabane en bois brûlé, un bain nordique privatif et les petits déjeuners inclus. Votre parenthèse au vert, à Valmunster en Moselle.",
+      "intro_title": "Du bois, du caractère. Et du temps pour vous.",
+      "intro_text": "À Valmunster, cette cabane en bois brûlé accueille les escapades à deux et les séjours en petite famille. Son intérieur mêle esprit vintage et confort contemporain. Terrasse, jardin et spa nordique privatif invitent à ralentir.",
+      "bath_title": "La chaleur de l’eau. Le calme du jardin.",
+      "bath_text": "Chauffé toute l’année, le spa nordique prolonge les journées au grand air. On s’y retrouve pour une pause à deux, au fil des saisons.",
+      "surroundings_title": "La Moselle, de nature et de culture.",
+      "surroundings_text": "Les paysages de la Nied, Metz et son patrimoine, les escapades en Sarre : composez votre séjour entre balades et découvertes.",
+      "cta_title": "Votre prochaine parenthèse commence ici.",
+      "cta_text": "Une question, des dates en tête ? Écrivez-nous pour préparer votre séjour à La Cabane du Chêne.",
+      "hero_image": "/images/chene/cabane-jardin.webp",
+      "hero_overlay": "38",
+      "hero_position": "center",
+      "hero_watermark": false,
+      "videos_title": "La cabane en vidéo"
+    },
+    "cabin": {
+      "intro": "Un cocon de 32 m², entre bois brûlé et intérieur raffiné. À deux ou jusqu’à quatre, découvrez une autre façon de séjourner en Moselle.",
+      "capacity": "Jusqu’à 4 personnes",
+      "surface": "32 m²",
+      "equipment": "Bain nordique privatif, Petit déjeuner inclus, Cuisine équipée, Climatisation réversible, Parking, Prise Green’Up",
+      "shared_garden": "La terrasse et le bain nordique prolongent la cabane dans un environnement verdoyant, pour lire, déjeuner ou profiter du calme.",
+      "spaces": [
+        {
+          "title": "Le salon",
+          "text": "Un espace chaleureux, entre décoration vintage et lignes contemporaines, avec canapé convertible pour deux personnes.",
+          "category": "salon",
+          "features": "Canapé convertible, Télévision, Climatisation"
+        },
+        {
+          "title": "La chambre en mezzanine",
+          "text": "Un lit queen size de 160 cm, dans un espace nuit en mezzanine au-dessus du salon.",
+          "category": "chambre",
+          "features": "Lit 160 cm, Linge de lit fourni, Mezzanine"
+        },
+        {
+          "title": "La cuisine équipée",
+          "text": "Préparer un repas ou réchauffer un plat : la cuisine dispose de vaisselle, d’un four, d’un micro-ondes et d’un lave-vaisselle.",
+          "category": "cuisine",
+          "features": "Plaque de cuisson, Four, Micro-ondes, Lave-vaisselle"
+        },
+        {
+          "title": "La salle de bains",
+          "text": "Une douche à l’italienne et le linge de toilette fourni pour voyager l’esprit léger.",
+          "category": "salle-de-bains",
+          "features": "Douche à l’italienne, Serviettes fournies"
+        },
+        {
+          "title": "La terrasse",
+          "text": "Une pièce de vie à ciel ouvert, au contact du jardin et à quelques pas du bain nordique.",
+          "category": "terrasse",
+          "features": "Mobilier extérieur, Jardin, Spa privatif"
+        }
+      ]
+    },
+    "equipments": [
+      {
+        "icon": "trees",
+        "label": "Cabane en bois brûlé"
+      },
+      {
+        "icon": "bath",
+        "label": "Bain nordique privatif"
+      },
+      {
+        "icon": "sun",
+        "label": "Terrasse au jardin"
+      },
+      {
+        "icon": "chef-hat",
+        "label": "Cuisine équipée"
+      },
+      {
+        "icon": "bed-double",
+        "label": "Lit 160 cm en mezzanine"
+      },
+      {
+        "icon": "sofa",
+        "label": "Canapé convertible"
+      },
+      {
+        "icon": "shower-head",
+        "label": "Douche à l’italienne"
+      },
+      {
+        "icon": "snowflake",
+        "label": "Climatisation réversible"
+      },
+      {
+        "icon": "coffee",
+        "label": "Petit déjeuner inclus"
+      },
+      {
+        "icon": "car",
+        "label": "Parking privatif"
+      },
+      {
+        "icon": "plug",
+        "label": "Prise Green’Up"
+      },
+      {
+        "icon": "tv",
+        "label": "Télévision"
+      }
+    ],
+    "bath": {
+      "intro": "Un bain nordique privatif, chauffé toute l’année, pour profiter du jardin et des soirées sous les étoiles.",
+      "heating": "Le bain nordique est chauffé toute l’année. Les modalités d’accueil et la préparation du spa vous sont précisées avant votre arrivée.",
+      "moments": [
+        {
+          "title": "À ciel ouvert",
+          "text": "Une pause au jardin, loin de l’agitation."
+        },
+        {
+          "title": "À la tombée du jour",
+          "text": "La lumière change, la journée ralentit."
+        },
+        {
+          "title": "Au fil des saisons",
+          "text": "Un spa chauffé toute l’année pour savourer votre séjour."
+        }
+      ],
+      "rules": [
+        "Douche et maillot de bain obligatoires.",
+        "Les enfants sont accompagnés d’un adulte.",
+        "Pas de verre, de nourriture ni de jeux dans le bain.",
+        "Respecter le calme du voisinage.",
+        "Utilisation du bain entre 7 h 30 et 23 h."
+      ],
+      "safety": [
+        "Contrôler la température avant d’entrer.",
+        "Suivre les consignes communiquées par les propriétaires.",
+        "Les enfants restent sous la surveillance permanente d’un adulte."
+      ]
+    },
+    "pricing": {
+      "price_per_night": "",
+      "min_nights": "",
+      "seasons": [],
+      "fees": [],
+      "cancellation": "Les conditions du site actuel prévoient des possibilités de report ou d’avoir selon le délai et le motif. Contactez-nous pour les conditions applicables à votre séjour.",
+      "checkin": "Entre 17 h et 19 h",
+      "checkout": "Avant 11 h",
+      "payment_note": "Le règlement intégral est prévu à la réservation. Le petit déjeuner sucré est inclus. Les modalités de paiement sont confirmées avec le propriétaire.",
+      "rates": [],
+      "base_guests": "2",
+      "extra_guest_per_night": "",
+      "max_guests": "4",
+      "breakfast_price": "0",
+      "breakfast_included": true,
+      "deposit_percent": "100",
+      "max_nights": "5",
+      "options": [
+        {
+          "label": "Assiette salée pour deux",
+          "price": "9",
+          "note": "À commander la veille. Supplément au petit déjeuner inclus.",
+          "active": true
+        }
+      ],
+      "confirmed": false,
+      "calendar_confirmed": false
+    },
+    "practical": {
+      "arrival": "Accueil entre 17 h et 19 h ; départ avant 11 h. Pour une arrivée après 19 h, prévenez-nous.",
+      "parking": "Une place privative devant la cabane, avec une prise Green’Up.",
+      "keybox": "Les modalités d’accès sont communiquées personnellement avant votre séjour.",
+      "directions": "8 rue de la forêt, 57220 Valmunster, en Moselle."
+    },
+    "faq": [
+      {
+        "q": "À quelle heure peut-on arriver et repartir ?",
+        "a": "L’arrivée se fait entre 17h et 19h et le départ avant 11h. Une arrivée anticipée ou un départ tardif se demande au moins 24h avant ; supplément annoncé : 20 €."
+      },
+      {
+        "q": "Le petit déjeuner est-il compris ?",
+        "a": "Oui, le petit déjeuner sucré est inclus pour les occupants, avec livraison du pain et des croissants avant 8h30. Une assiette salée pour deux est proposée à 9 €, sur commande la veille."
+      },
+      {
+        "q": "Les animaux sont-ils acceptés ?",
+        "a": "Non, les animaux domestiques ne sont pas admis dans la cabane ni sur ses extérieurs."
+      },
+      {
+        "q": "Peut-on cuisiner sur place ?",
+        "a": "Oui. La cuisine dispose notamment d’une plaque, d’un four, d’un micro-ondes, d’un lave-vaisselle et de vaisselle."
+      },
+      {
+        "q": "Peut-on venir avec un bébé ?",
+        "a": "Oui. Un lit bébé et une chaise haute peuvent être fournis sur réservation, sans supplément."
+      },
+      {
+        "q": "Combien de personnes la cabane accueille-t-elle ?",
+        "a": "La capacité maximale annoncée est de quatre personnes, avec un lit double en mezzanine et un canapé convertible."
+      },
+      {
+        "q": "Le bain nordique est-il privatif ?",
+        "a": "Oui. Il est chauffé toute l’année. Son utilisation demande le respect des consignes et du calme environnant."
+      }
+    ],
+    "places": [
+      {
+        "name": "Cathédrale de Metz",
+        "category": "Visites culturelles",
+        "text": "Une halte dans le centre historique, autour de ses vitraux et de son architecture gothique.",
+        "image": "/images/chene/metz-cathedrale.webp",
+        "url": "https://cathedrale-metz.fr/",
+        "maps": "https://www.google.com/maps/search/?api=1&query=Cathédrale+de+Metz",
+        "coords": ""
+      },
+      {
+        "name": "Saarlouis",
+        "category": "Visites culturelles",
+        "text": "Une escapade en Sarre entre patrimoine fortifié, places et ruelles de la vieille ville.",
+        "image": "/images/chene/saarlouis.webp",
+        "url": "https://www.visiter-la-sarre.fr/",
+        "maps": "https://www.google.com/maps/search/?api=1&query=Saarlouis",
+        "coords": ""
+      },
+      {
+        "name": "Château de Malbrouck",
+        "category": "Visites culturelles",
+        "text": "Un château à Manderen, pour une sortie mêlant patrimoine et expositions.",
+        "image": "/images/chene/malbrouck.webp",
+        "url": "https://www.chateau-malbrouck.com/",
+        "maps": "https://www.google.com/maps/search/?api=1&query=Château+de+Malbrouck",
+        "coords": ""
+      },
+      {
+        "name": "Centre Pompidou-Metz",
+        "category": "Visites culturelles",
+        "text": "Une parenthèse culturelle entre architecture singulière et expositions d’art.",
+        "image": "/images/chene/pompidou-metz.webp",
+        "url": "https://www.centrepompidou-metz.fr/",
+        "maps": "https://www.google.com/maps/search/?api=1&query=Centre+Pompidou-Metz",
+        "coords": ""
+      },
+      {
+        "name": "Fort aux Fresques",
+        "category": "Visites culturelles",
+        "text": "À Hestroff, un ouvrage de la ligne Maginot marqué par les fresques de ses soldats.",
+        "image": "/images/chene/fort-fresques.webp",
+        "url": "https://www.fortauxfresques.fr/",
+        "maps": "https://www.google.com/maps/search/?api=1&query=Fort+aux+Fresques",
+        "coords": ""
+      },
+      {
+        "name": "Zoo d’Amnéville",
+        "category": "Sorties",
+        "text": "Une idée de sortie en famille dans le parc animalier d’Amnéville.",
+        "image": "/images/chene/zoo-amneville.webp",
+        "url": "https://zoo-amneville.com/",
+        "maps": "https://www.google.com/maps/search/?api=1&query=Zoo+d’Amnéville",
+        "coords": ""
+      },
+      {
+        "name": "Les paysages de la Nied",
+        "category": "Nature",
+        "text": "Chemins de campagne et paysages mosellans, pour une promenade à votre rythme.",
+        "image": "/images/chene/cabane-jardin.webp",
+        "url": "",
+        "maps": "https://www.google.com/maps/search/?api=1&query=randonnée+Valmunster",
+        "coords": ""
+      }
+    ],
+    "reviews": [],
+    "videos": [],
+    "legal": {
+      "operator_name": "La Cabane du Chêne",
+      "legal_status": "",
+      "siret": "",
+      "address": "8 rue de la forêt, 57220 Valmunster",
+      "publication_director": "",
+      "host_name": "",
+      "host_address": "",
+      "registration_number": "",
+      "mediator": "",
+      "cgv_extra": "",
+      "source_cgv": "https://lacabaneduchene.fr/conditions-generales-de-vente/"
+    },
+    "ical": {
+      "airbnb": "",
+      "booking": "",
+      "abracadaroom": "",
+      "greengo": "",
+      "other": ""
+    },
+    "gifts": {
+      "sales_enabled": false,
+      "validity_days": "",
+      "min_amount": "20",
+      "max_amount": "2000",
+      "amounts": "50,100,150,200",
+      "terms": "",
+      "conditions_confirmed": false
+    }
+  },
+  "photos": [
+    {
+      "url": "/images/chene/cabane-jardin.webp",
+      "category": "jardin",
+      "alt": "La Cabane du Chêne dans son jardin",
+      "order": 0,
+      "illustration": false,
+      "credit": "La cabane du chene – Arrière"
+    },
+    {
+      "url": "/images/chene/cabane-facade.webp",
+      "category": "pergola",
+      "alt": "Façade de La Cabane du Chêne",
+      "order": 1,
+      "illustration": false,
+      "credit": "La cabane du chêne – avant"
+    },
+    {
+      "url": "/images/chene/interieur-mezzanine.webp",
+      "category": "salon",
+      "alt": "Vue de la mezzanine sur le salon",
+      "order": 2,
+      "illustration": false,
+      "credit": ""
+    },
+    {
+      "url": "/images/chene/chambre-mezzanine.webp",
+      "category": "chambre",
+      "alt": "Lit queen size dans la chambre en mezzanine",
+      "order": 3,
+      "illustration": false,
+      "credit": ""
+    },
+    {
+      "url": "/images/chene/interieur-cuisine.webp",
+      "category": "cuisine",
+      "alt": "Cuisine équipée et espace de vie",
+      "order": 4,
+      "illustration": false,
+      "credit": ""
+    },
+    {
+      "url": "/images/chene/cabane-bois-brule.webp",
+      "category": "vue",
+      "alt": "Façade en bois brûlé et jardin",
+      "order": 5,
+      "illustration": false,
+      "credit": "La cabane du chene – Exterieur"
+    },
+    {
+      "url": "/images/chene/terrasse-jardin.webp",
+      "category": "terrasse",
+      "alt": "Terrasse et jardin de la cabane",
+      "order": 6,
+      "illustration": false,
+      "credit": "la cabane du chêne – terrasse"
+    },
+    {
+      "url": "/images/chene/bain-nordique-panorama.webp",
+      "category": "bain",
+      "alt": "Le spa finlandais et sa terrasse",
+      "order": 7,
+      "illustration": false,
+      "credit": "SPA CABANE"
+    },
+    {
+      "url": "/images/chene/bain-nordique.webp",
+      "category": "bain",
+      "alt": "Bain nordique privatif",
+      "order": 8,
+      "illustration": false,
+      "credit": "SPA DE LA CABANE"
+    },
+    {
+      "url": "/images/chene/metz-cathedrale.webp",
+      "category": "guide",
+      "alt": "Cathédrale Saint-Étienne de Metz",
+      "order": 9,
+      "illustration": false,
+      "credit": ""
+    },
+    {
+      "url": "/images/chene/saarlouis.webp",
+      "category": "guide",
+      "alt": "Saarlouis et son patrimoine",
+      "order": 10,
+      "illustration": false,
+      "credit": ""
+    },
+    {
+      "url": "/images/chene/malbrouck.webp",
+      "category": "guide",
+      "alt": "Château de Malbrouck",
+      "order": 11,
+      "illustration": false,
+      "credit": "Guillaume Ramon (nom du fichier source : MALBROUCK_CGUILLAUME_RAMON_006.jpg)"
+    },
+    {
+      "url": "/images/chene/pompidou-metz.webp",
+      "category": "guide",
+      "alt": "Centre Pompidou-Metz",
+      "order": 12,
+      "illustration": false,
+      "credit": ""
+    },
+    {
+      "url": "/images/chene/fort-fresques.webp",
+      "category": "guide",
+      "alt": "Fort aux Fresques de Hestroff",
+      "order": 13,
+      "illustration": false,
+      "credit": ""
+    },
+    {
+      "url": "/images/chene/zoo-amneville.webp",
+      "category": "guide",
+      "alt": "Entrée du zoo d’Amnéville",
+      "order": 14,
+      "illustration": false,
+      "credit": ""
+    }
+  ]
+}

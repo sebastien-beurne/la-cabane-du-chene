@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 97%;
+    --foreground: 152 23% 14%;
+    --card: 0 0% 100%;
+    --card-foreground: 152 23% 14%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 152 23% 14%;
+    --primary: 155 24% 23%;
+    --primary-foreground: 40 33% 96%;
+    --secondary: 40 27% 91%;
+    --secondary-foreground: 152 23% 14%;
+    --muted: 40 27% 91%;
+    --muted-foreground: 150 10% 33%;
+    --accent: 16 56% 45%;
+    --accent-foreground: 40 33% 96%;
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 150 20% 85%;
+    --input: 150 20% 80%;
+    --ring: 155 24% 23%;
+    --radius: 0.375rem;
+  }
+}
+
+:root {
+  --forest-deep: #1b2b24;
+  --forest: #2d4a3e;
+  --sage: #4a6b5d;
+  --cream: #f8f5f0;
+  --sand: #efeae1;
+  --wood: #6b4e3d;
+  --rust: #b35432;
+  --amber: #d4a373;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: #fbf9f5;
+  color: #33423a;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, .font-display { font-family: "Cormorant Garamond", Georgia, serif; }
+::selection { background: var(--rust); color: var(--cream); }
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-track { animation: marquee 70s linear infinite; }
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.spin-slow { animation: spin-slow 28s linear infinite; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track, .spin-slow { animation: none; }
+}
+
+
+@media print {
+  header, footer, [data-print-hide], [data-sonner-toaster] { display: none !important; }
+  .gift-print { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+

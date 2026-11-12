@@ -1,0 +1,7 @@
+Importe et exécute le dépôt La Cabane du Chêne fourni, en tant que nouveau projet indépendant. Lis README.md et INSTALL_EMERGENT.md. Conserve le code, la direction graphique, les photos WebP locales, l'administration modulaire et les dictionnaires FR/EN/DE/NL préparés. Ne régénère pas le site, les photos ou les traductions et n'ajoute aucun appel IA à la visite.
+
+Architecture : React/Vite (frontend, port 3000), FastAPI (`backend/server.py`, `uvicorn server:app`, port 8001), MongoDB propre au projet. Adapte seulement le lancement, le reverse proxy /api et les variables à ton environnement. Ne lance jamais le script racine de démonstration en production. Crée les secrets et le propriétaire du Chêne via les variables privées, sans reprendre les secrets du projet Folies.
+
+Commence par un aperçu de test. Vérifie le build, les pages et les quatre langues. Garde réservations payantes et cartes cadeaux désactivées tant que tarifs, calendriers HBook/iCal, MongoDB avec transactions, Stripe, e-mails et conditions ne sont pas confirmés. Les données clients et réservations WordPress ne sont pas dans le dépôt. ANCV nécessite un développement séparé. Ne change aucun domaine et n'active aucun paiement réel à cette étape.
+
+Exécute les tests fournis appropriés. Signale précisément tout prérequis manquant ; ne remplace pas les paramètres commerciaux absents par des valeurs du projet Folies. Limite les modifications aux problèmes reproductibles de l'import pour économiser les crédits.

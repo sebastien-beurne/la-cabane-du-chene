@@ -1,0 +1,170 @@
+{
+  "checked_at": "2026-11-12",
+  "checks": [
+    {
+      "lang": "en",
+      "route": "/la-cabane",
+      "warning": false
+    },
+    {
+      "lang": "en",
+      "route": "/bain-nordique",
+      "warning": false
+    },
+    {
+      "lang": "en",
+      "route": "/a-voir-dans-les-environs",
+      "warning": false
+    },
+    {
+      "lang": "en",
+      "route": "/contact",
+      "warning": false
+    },
+    {
+      "lang": "en",
+      "route": "/mentions-legales",
+      "warning": false
+    },
+    {
+      "lang": "en",
+      "route": "/confidentialite",
+      "warning": false
+    },
+    {
+      "lang": "en",
+      "route": "/conditions",
+      "warning": false
+    },
+    {
+      "lang": "en",
+      "route": "/avis-clients",
+      "warning": false
+    },
+    {
+      "lang": "en",
+      "route": "/livret-accueil",
+      "warning": false
+    },
+    {
+      "lang": "en",
+      "route": "/tarifs-disponibilites",
+      "warning": false
+    },
+    {
+      "lang": "en",
+      "route": "/carte-cadeau",
+      "warning": false
+    },
+    {
+      "lang": "de",
+      "route": "/la-cabane",
+      "warning": false
+    },
+    {
+      "lang": "de",
+      "route": "/bain-nordique",
+      "warning": false
+    },
+    {
+      "lang": "de",
+      "route": "/a-voir-dans-les-environs",
+      "warning": false
+    },
+    {
+      "lang": "de",
+      "route": "/contact",
+      "warning": false
+    },
+    {
+      "lang": "de",
+      "route": "/mentions-legales",
+      "warning": false
+    },
+    {
+      "lang": "de",
+      "route": "/confidentialite",
+      "warning": false
+    },
+    {
+      "lang": "de",
+      "route": "/conditions",
+      "warning": false
+    },
+    {
+      "lang": "de",
+      "route": "/avis-clients",
+      "warning": false
+    },
+    {
+      "lang": "de",
+      "route": "/livret-accueil",
+      "warning": false
+    },
+    {
+      "lang": "de",
+      "route": "/tarifs-disponibilites",
+      "warning": false
+    },
+    {
+      "lang": "de",
+      "route": "/carte-cadeau",
+      "warning": false
+    },
+    {
+      "lang": "nl",
+      "route": "/la-cabane",
+      "warning": false
+    },
+    {
+      "lang": "nl",
+      "route": "/bain-nordique",
+      "warning": false
+    },
+    {
+      "lang": "nl",
+      "route": "/a-voir-dans-les-environs",
+      "warning": false
+    },
+    {
+      "lang": "nl",
+      "route": "/contact",
+      "warning": false
+    },
+    {
+      "lang": "nl",
+      "route": "/mentions-legales",
+      "warning": false
+    },
+    {
+      "lang": "nl",
+      "route": "/confidentialite",
+      "warning": false
+    },
+    {
+      "lang": "nl",
+      "route": "/conditions",
+      "warning": false
+    },
+    {
+      "lang": "nl",
+      "route": "/avis-clients",
+      "warning": false
+    },
+    {
+      "lang": "nl",
+      "route": "/livret-accueil",
+      "warning": false
+    },
+    {
+      "lang": "nl",
+      "route": "/tarifs-disponibilites",
+      "warning": false
+    },
+    {
+      "lang": "nl",
+      "route": "/carte-cadeau",
+      "warning": false
+    }
+  ]
+}

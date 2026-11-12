@@ -1,0 +1,5 @@
+@media print {
+  .gift-cards [data-print-hide] { display: none !important; }
+  .gift-cards .gift-print { -webkit-print-color-adjust: exact; print-color-adjust: exact; break-inside: avoid; }
+}
+

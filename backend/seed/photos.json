@@ -1,0 +1,122 @@
+[
+  {
+    "url": "/images/chene/cabane-jardin.webp",
+    "category": "jardin",
+    "alt": "La Cabane du Chêne dans son jardin",
+    "order": 0,
+    "illustration": false,
+    "credit": "La cabane du chene – Arrière"
+  },
+  {
+    "url": "/images/chene/cabane-facade.webp",
+    "category": "pergola",
+    "alt": "Façade de La Cabane du Chêne",
+    "order": 1,
+    "illustration": false,
+    "credit": "La cabane du chêne – avant"
+  },
+  {
+    "url": "/images/chene/interieur-mezzanine.webp",
+    "category": "salon",
+    "alt": "Vue de la mezzanine sur le salon",
+    "order": 2,
+    "illustration": false,
+    "credit": ""
+  },
+  {
+    "url": "/images/chene/chambre-mezzanine.webp",
+    "category": "chambre",
+    "alt": "Lit queen size dans la chambre en mezzanine",
+    "order": 3,
+    "illustration": false,
+    "credit": ""
+  },
+  {
+    "url": "/images/chene/interieur-cuisine.webp",
+    "category": "cuisine",
+    "alt": "Cuisine équipée et espace de vie",
+    "order": 4,
+    "illustration": false,
+    "credit": ""
+  },
+  {
+    "url": "/images/chene/cabane-bois-brule.webp",
+    "category": "vue",
+    "alt": "Façade en bois brûlé et jardin",
+    "order": 5,
+    "illustration": false,
+    "credit": "La cabane du chene – Exterieur"
+  },
+  {
+    "url": "/images/chene/terrasse-jardin.webp",
+    "category": "terrasse",
+    "alt": "Terrasse et jardin de la cabane",
+    "order": 6,
+    "illustration": false,
+    "credit": "la cabane du chêne – terrasse"
+  },
+  {
+    "url": "/images/chene/bain-nordique-panorama.webp",
+    "category": "bain",
+    "alt": "Le spa finlandais et sa terrasse",
+    "order": 7,
+    "illustration": false,
+    "credit": "SPA CABANE"
+  },
+  {
+    "url": "/images/chene/bain-nordique.webp",
+    "category": "bain",
+    "alt": "Bain nordique privatif",
+    "order": 8,
+    "illustration": false,
+    "credit": "SPA DE LA CABANE"
+  },
+  {
+    "url": "/images/chene/metz-cathedrale.webp",
+    "category": "guide",
+    "alt": "Cathédrale Saint-Étienne de Metz",
+    "order": 9,
+    "illustration": false,
+    "credit": ""
+  },
+  {
+    "url": "/images/chene/saarlouis.webp",
+    "category": "guide",
+    "alt": "Saarlouis et son patrimoine",
+    "order": 10,
+    "illustration": false,
+    "credit": ""
+  },
+  {
+    "url": "/images/chene/malbrouck.webp",
+    "category": "guide",
+    "alt": "Château de Malbrouck",
+    "order": 11,
+    "illustration": false,
+    "credit": "Guillaume Ramon (nom du fichier source : MALBROUCK_CGUILLAUME_RAMON_006.jpg)"
+  },
+  {
+    "url": "/images/chene/pompidou-metz.webp",
+    "category": "guide",
+    "alt": "Centre Pompidou-Metz",
+    "order": 12,
+    "illustration": false,
+    "credit": ""
+  },
+  {
+    "url": "/images/chene/fort-fresques.webp",
+    "category": "guide",
+    "alt": "Fort aux Fresques de Hestroff",
+    "order": 13,
+    "illustration": false,
+    "credit": ""
+  },
+  {
+    "url": "/images/chene/zoo-amneville.webp",
+    "category": "guide",
+    "alt": "Entrée du zoo d’Amnéville",
+    "order": 14,
+    "illustration": false,
+    "credit": ""
+  }
+]

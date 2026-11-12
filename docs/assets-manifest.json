@@ -1,0 +1,354 @@
+[
+  {
+    "id": 29202,
+    "filename": "cabane-jardin.webp",
+    "path": "/images/chene/cabane-jardin.webp",
+    "alt": "La Cabane du Chêne dans son jardin",
+    "category": "cabane",
+    "source_url": "https://lacabaneduchene.fr/wp-content/uploads/2025/01/IMG_20240808_175346_HDR-scaled.jpg",
+    "source_page": "https://lacabaneduchene.fr/capture_modeautomodulefaces-6/",
+    "source_dimensions": [
+      2560,
+      1920
+    ],
+    "dimensions": [
+      1600,
+      1200
+    ],
+    "source_bytes": 1485061,
+    "optimized_bytes": 535854,
+    "sha256": "e8df557f5c4447924f9438228733475ba677a13f67c7955098a719aef00b099b",
+    "credit": "La cabane du chene – Arrière",
+    "rights_note": "Photo déjà publiée sur le site source. Droits existants à conserver et confirmer avant publication."
+  },
+  {
+    "id": 29180,
+    "filename": "cabane-facade.webp",
+    "path": "/images/chene/cabane-facade.webp",
+    "alt": "Façade de La Cabane du Chêne",
+    "category": "cabane",
+    "source_url": "https://lacabaneduchene.fr/wp-content/uploads/2024/08/La-cabane-du-chene-avant-2-scaled.jpg",
+    "source_page": "https://lacabaneduchene.fr/capture_modeautomodulefaces-5/",
+    "source_dimensions": [
+      1920,
+      2560
+    ],
+    "dimensions": [
+      1200,
+      1600
+    ],
+    "source_bytes": 1571329,
+    "optimized_bytes": 541990,
+    "sha256": "74adf940b756e0432efbcab638661dcc4221f8836e3f9f4e013eafa516743cdc",
+    "credit": "La cabane du chêne – avant",
+    "rights_note": "Photo déjà publiée sur le site source. Droits existants à conserver et confirmer avant publication."
+  },
+  {
+    "id": 29152,
+    "filename": "interieur-mezzanine.webp",
+    "path": "/images/chene/interieur-mezzanine.webp",
+    "alt": "Vue de la mezzanine sur le salon",
+    "category": "cabane",
+    "source_url": "https://lacabaneduchene.fr/wp-content/uploads/2024/07/La-cabane-du-chene-Int-4-scaled.jpg",
+    "source_page": "https://lacabaneduchene.fr/la-cabane-du-chene-int-4/",
+    "source_dimensions": [
+      1922,
+      2560
+    ],
+    "dimensions": [
+      1201,
+      1600
+    ],
+    "source_bytes": 711003,
+    "optimized_bytes": 141200,
+    "sha256": "3205aa1baed504f68a93af72cc79fbc743e490c2e4f0cb253ac09535e6c43eea",
+    "credit": "",
+    "rights_note": "Photo déjà publiée sur le site source. Droits existants à conserver et confirmer avant publication."
+  },
+  {
+    "id": 29151,
+    "filename": "chambre-mezzanine.webp",
+    "path": "/images/chene/chambre-mezzanine.webp",
+    "alt": "Lit queen size dans la chambre en mezzanine",
+    "category": "cabane",
+    "source_url": "https://lacabaneduchene.fr/wp-content/uploads/2024/07/La-cabane-du-chene-Int-7-scaled.jpg",
+    "source_page": "https://lacabaneduchene.fr/la-cabane-du-chene-int-7/",
+    "source_dimensions": [
+      1922,
+      2560
+    ],
+    "dimensions": [
+      1201,
+      1600
+    ],
+    "source_bytes": 538883,
+    "optimized_bytes": 86334,
+    "sha256": "668e1e43a77309859622495afbf4573d10dd148a6332eb351061bb8d11894dbe",
+    "credit": "",
+    "rights_note": "Photo déjà publiée sur le site source. Droits existants à conserver et confirmer avant publication."
+  },
+  {
+    "id": 29150,
+    "filename": "interieur-cuisine.webp",
+    "path": "/images/chene/interieur-cuisine.webp",
+    "alt": "Cuisine équipée et espace de vie",
+    "category": "cabane",
+    "source_url": "https://lacabaneduchene.fr/wp-content/uploads/2024/07/La-cabane-du-chene-Int-2-scaled.jpg",
+    "source_page": "https://lacabaneduchene.fr/la-cabane-du-chene-int-2/",
+    "source_dimensions": [
+      1922,
+      2560
+    ],
+    "dimensions": [
+      1201,
+      1600
+    ],
+    "source_bytes": 530062,
+    "optimized_bytes": 95172,
+    "sha256": "a64faac8436e791aa588f54ff22f8cb0ec4a1eb32e18fcda551314e8b5fb8a29",
+    "credit": "",
+    "rights_note": "Photo déjà publiée sur le site source. Droits existants à conserver et confirmer avant publication."
+  },
+  {
+    "id": 29134,
+    "filename": "cabane-bois-brule.webp",
+    "path": "/images/chene/cabane-bois-brule.webp",
+    "alt": "Façade en bois brûlé et jardin",
+    "category": "cabane",
+    "source_url": "https://lacabaneduchene.fr/wp-content/uploads/2024/06/IMG_20240618_085126_HDR-scaled.jpg",
+    "source_page": "https://lacabaneduchene.fr/capture_modeautomodulefaces-4/",
+    "source_dimensions": [
+      1920,
+      2560
+    ],
+    "dimensions": [
+      1200,
+      1600
+    ],
+    "source_bytes": 1387688,
+    "optimized_bytes": 500766,
+    "sha256": "f80d3dc0c61b7c76fc910b32e0542ba46d046c9c419cf1d8c4da9a0eb435b709",
+    "credit": "La cabane du chene – Exterieur",
+    "rights_note": "Photo déjà publiée sur le site source. Droits existants à conserver et confirmer avant publication."
+  },
+  {
+    "id": 29133,
+    "filename": "terrasse-jardin.webp",
+    "path": "/images/chene/terrasse-jardin.webp",
+    "alt": "Terrasse et jardin de la cabane",
+    "category": "cabane",
+    "source_url": "https://lacabaneduchene.fr/wp-content/uploads/2024/06/IMG_20240616_152554_HDR-scaled.jpg",
+    "source_page": "https://lacabaneduchene.fr/capture_modeautomodulefaces-3/",
+    "source_dimensions": [
+      1920,
+      2560
+    ],
+    "dimensions": [
+      1200,
+      1600
+    ],
+    "source_bytes": 1235822,
+    "optimized_bytes": 411218,
+    "sha256": "831cc226e4d4ecb8ee600c4c774117b3e62b1063aa9c87742140947ff0523884",
+    "credit": "la cabane du chêne – terrasse",
+    "rights_note": "Photo déjà publiée sur le site source. Droits existants à conserver et confirmer avant publication."
+  },
+  {
+    "id": 29122,
+    "filename": "bain-nordique-panorama.webp",
+    "path": "/images/chene/bain-nordique-panorama.webp",
+    "alt": "Le spa finlandais et sa terrasse",
+    "category": "cabane",
+    "source_url": "https://lacabaneduchene.fr/wp-content/uploads/2024/06/IMG_20240616_150108_HDR-scaled-e1718622430898.jpg",
+    "source_page": "https://lacabaneduchene.fr/capture_modeautomodulefaces-2/",
+    "source_dimensions": [
+      2560,
+      1280
+    ],
+    "dimensions": [
+      1600,
+      800
+    ],
+    "source_bytes": 590034,
+    "optimized_bytes": 157818,
+    "sha256": "5decd1acede8066b8f4fb8f4dbd4c93780d4673c9bc4a3077068d93ad934b84e",
+    "credit": "SPA CABANE",
+    "rights_note": "Photo déjà publiée sur le site source. Droits existants à conserver et confirmer avant publication."
+  },
+  {
+    "id": 29121,
+    "filename": "bain-nordique.webp",
+    "path": "/images/chene/bain-nordique.webp",
+    "alt": "Bain nordique privatif",
+    "category": "cabane",
+    "source_url": "https://lacabaneduchene.fr/wp-content/uploads/2024/06/IMG_20240616_150357_HDR-scaled.jpg",
+    "source_page": "https://lacabaneduchene.fr/capture_modeautomodulefaces/",
+    "source_dimensions": [
+      1920,
+      2560
+    ],
+    "dimensions": [
+      1200,
+      1600
+    ],
+    "source_bytes": 746672,
+    "optimized_bytes": 189214,
+    "sha256": "cad611b8cac8b4bd37ba1af3feab801d07a5f5ecdaf0c05871f88ba13146e727",
+    "credit": "SPA DE LA CABANE",
+    "rights_note": "Photo déjà publiée sur le site source. Droits existants à conserver et confirmer avant publication."
+  },
+  {
+    "id": 29061,
+    "filename": "metz-cathedrale.webp",
+    "path": "/images/chene/metz-cathedrale.webp",
+    "alt": "Cathédrale Saint-Étienne de Metz",
+    "category": "environs",
+    "source_url": "https://lacabaneduchene.fr/wp-content/uploads/2024/03/Metz-cathedrale.jpeg",
+    "source_page": "https://lacabaneduchene.fr/metz-cathedrale/",
+    "source_dimensions": [
+      1940,
+      970
+    ],
+    "dimensions": [
+      1100,
+      550
+    ],
+    "source_bytes": 274623,
+    "optimized_bytes": 77736,
+    "sha256": "eacd8608871997c5ed7d62f50e72108275465383de145742a16172b8244b1d98",
+    "credit": "",
+    "rights_note": "Photo déjà publiée sur le site source. Droits existants à conserver et confirmer avant publication."
+  },
+  {
+    "id": 29084,
+    "filename": "saarlouis.webp",
+    "path": "/images/chene/saarlouis.webp",
+    "alt": "Saarlouis et son patrimoine",
+    "category": "environs",
+    "source_url": "https://lacabaneduchene.fr/wp-content/uploads/2024/03/Saarlouis.jpg",
+    "source_page": "https://lacabaneduchene.fr/saarlouis/",
+    "source_dimensions": [
+      768,
+      511
+    ],
+    "dimensions": [
+      768,
+      511
+    ],
+    "source_bytes": 97099,
+    "optimized_bytes": 64930,
+    "sha256": "25809b6f68c1402bbf0769b98e9e12a95a8752364817df2e438ee4c8f7a8b4f3",
+    "credit": "",
+    "rights_note": "Photo déjà publiée sur le site source. Droits existants à conserver et confirmer avant publication."
+  },
+  {
+    "id": 29085,
+    "filename": "malbrouck.webp",
+    "path": "/images/chene/malbrouck.webp",
+    "alt": "Château de Malbrouck",
+    "category": "environs",
+    "source_url": "https://lacabaneduchene.fr/wp-content/uploads/2024/03/MALBROUCK_CGUILLAUME_RAMON_006.jpg",
+    "source_page": "https://lacabaneduchene.fr/chateau-de-malbrouck-57credit-photo-guillaume-ramon/",
+    "source_dimensions": [
+      1366,
+      910
+    ],
+    "dimensions": [
+      1100,
+      732
+    ],
+    "source_bytes": 562838,
+    "optimized_bytes": 100436,
+    "sha256": "5121dc0d2006bb1fd12aec9f2d9cc0fbf317d0416a85b005cdc8e98976720d27",
+    "credit": "Guillaume Ramon (nom du fichier source : MALBROUCK_CGUILLAUME_RAMON_006.jpg)",
+    "rights_note": "Photo déjà publiée sur le site source. Droits existants à conserver et confirmer avant publication."
+  },
+  {
+    "id": 29091,
+    "filename": "pompidou-metz.webp",
+    "path": "/images/chene/pompidou-metz.webp",
+    "alt": "Centre Pompidou-Metz",
+    "category": "environs",
+    "source_url": "https://lacabaneduchene.fr/wp-content/uploads/2024/03/Pompidou.png",
+    "source_page": "https://lacabaneduchene.fr/pompidou/",
+    "source_dimensions": [
+      673,
+      499
+    ],
+    "dimensions": [
+      673,
+      499
+    ],
+    "source_bytes": 611729,
+    "optimized_bytes": 33578,
+    "sha256": "79fb7753af681cd05983e17a54982046429eae7059ca52714863daab82374551",
+    "credit": "",
+    "rights_note": "Photo déjà publiée sur le site source. Droits existants à conserver et confirmer avant publication."
+  },
+  {
+    "id": 29094,
+    "filename": "fort-fresques.webp",
+    "path": "/images/chene/fort-fresques.webp",
+    "alt": "Fort aux Fresques de Hestroff",
+    "category": "environs",
+    "source_url": "https://lacabaneduchene.fr/wp-content/uploads/2024/03/Fort-fresques.png",
+    "source_page": "https://lacabaneduchene.fr/fort-fresques/",
+    "source_dimensions": [
+      788,
+      632
+    ],
+    "dimensions": [
+      788,
+      632
+    ],
+    "source_bytes": 1151958,
+    "optimized_bytes": 151572,
+    "sha256": "1cbc91c4ae368a6cf07353ca9a28502a7e8ac8773fc23d61562a7fe7ad4c2e05",
+    "credit": "",
+    "rights_note": "Photo déjà publiée sur le site source. Droits existants à conserver et confirmer avant publication."
+  },
+  {
+    "id": 29095,
+    "filename": "zoo-amneville.webp",
+    "path": "/images/chene/zoo-amneville.webp",
+    "alt": "Entrée du zoo d’Amnéville",
+    "category": "environs",
+    "source_url": "https://lacabaneduchene.fr/wp-content/uploads/2024/03/Entree_zoo-scaled.jpg",
+    "source_page": "https://lacabaneduchene.fr/entree_zoo/",
+    "source_dimensions": [
+      2560,
+      1710
+    ],
+    "dimensions": [
+      1100,
+      735
+    ],
+    "source_bytes": 1382483,
+    "optimized_bytes": 197094,
+    "sha256": "982d11d7752d27ba07a05ce68777952defc68ff39f2d38bbe8c3255e7de6abfc",
+    "credit": "",
+    "rights_note": "Photo déjà publiée sur le site source. Droits existants à conserver et confirmer avant publication."
+  },
+  {
+    "id": 29049,
+    "filename": "logo-chene.webp",
+    "path": "/images/chene/logo-chene.webp",
+    "alt": "Logo La Cabane du Chêne",
+    "category": "identite",
+    "source_url": "https://lacabaneduchene.fr/wp-content/uploads/2024/03/cropped-Logo-La-cabane-du-che%E2%95%A0ene-e1710568549668.png",
+    "source_page": "https://lacabaneduchene.fr/cropped-logo-la-cabane-du-che%e2%95%a0ene-png/",
+    "source_dimensions": [
+      456,
+      275
+    ],
+    "dimensions": [
+      456,
+      275
+    ],
+    "source_bytes": 10665,
+    "optimized_bytes": 7140,
+    "sha256": "df4750f17993611a0e68358ac8eaee05f35fb39d4e9e23811813c2053e929b04",
+    "credit": "https://lacabaneduchene.fr/wp-content/uploads/2024/03/cropped-Logo-La-cabane-du-che╠ene.png",
+    "rights_note": "Photo déjà publiée sur le site source. Droits existants à conserver et confirmer avant publication."
+  }
+]

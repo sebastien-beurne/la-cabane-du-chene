@@ -1,0 +1,260 @@
+{
+  "imported_at": "2026-11-12",
+  "source_url": "https://lacabaneduchene.fr/",
+  "brand": {
+    "name": "La Cabane du Chêne",
+    "location": "Valmunster · Moselle",
+    "tagline": "Une parenthèse au vert, en Moselle",
+    "logo": "/images/chene/logo-chene.webp",
+    "hero_image": "/images/chene/cabane-jardin.webp"
+  },
+  "property": {
+    "name": "La Cabane du Chêne",
+    "surface_m2": 32,
+    "max_guests": 4,
+    "base_guests": 2,
+    "beds": "Lit queen size 160 cm en mezzanine et canapé convertible",
+    "description": "À Valmunster, cette cabane en bois brûlé accueille les escapades à deux et les séjours en petite famille. Son intérieur mêle esprit vintage et confort contemporain. Terrasse, jardin et spa nordique privatif invitent à ralentir.",
+    "features": [
+      "32 m²",
+      "Jusqu’à 4 personnes",
+      "Bain nordique privatif",
+      "Petit déjeuner inclus",
+      "Climatisation réversible",
+      "Cuisine équipée",
+      "Lit 160 cm en mezzanine",
+      "Canapé convertible",
+      "Douche à l’italienne",
+      "Linge de lit et de toilette fourni",
+      "Parking privatif",
+      "Prise Green’Up"
+    ],
+    "kitchen": [
+      "Plaque de cuisson",
+      "Four",
+      "Micro-ondes",
+      "Lave-vaisselle",
+      "Vaisselle",
+      "Grille-pain",
+      "Bouilloire"
+    ],
+    "hero_kicker": "CABANE EN BOIS BRÛLÉ · SPA PRIVATIF",
+    "hero_title": "Le calme, tout simplement.",
+    "hero_text": "Une cabane de 32 m² à Valmunster, un bain nordique chauffé toute l’année et le petit déjeuner inclus.",
+    "spa": {
+      "temperature_c": 38,
+      "year_round": true,
+      "private": true,
+      "access_hours": "7h30–23h",
+      "description": "Un bain nordique privatif, chauffé toute l’année, pour profiter du jardin et des soirées sous les étoiles.",
+      "rules": [
+        "Douche et maillot de bain obligatoires",
+        "Enfants accompagnés d’un adulte",
+        "Pas de verre, de nourriture ni de jeux dans le bain",
+        "Préserver le calme du voisinage"
+      ]
+    }
+  },
+  "contact": {
+    "address": "8 rue de la forêt",
+    "postal_code": "57220",
+    "city": "Valmunster",
+    "country": "France",
+    "phone": "+33 6 22 80 66 48",
+    "phone_href": "tel:+33622806648",
+    "email": "contact@lacabaneduchene.fr",
+    "website": "https://lacabaneduchene.fr",
+    "latitude": 49.24323947354579,
+    "longitude": 6.503507177071379,
+    "map_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2604.749441722558!2d6.503507177071379!3d49.24323947354579!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479503632b7ce453%3A0x602fd2342194271f!2sLa%20cabane%20du%20ch%C3%AAne!5e0!3m2!1sfr!2sfr!4v1709283130865!5m2!1sfr!2sfr",
+    "map_url": "https://www.google.com/maps/search/?api=1&query=La+Cabane+du+Ch%C3%AAne+8+rue+de+la+for%C3%AAt+57220+Valmunster"
+  },
+  "pricing": {
+    "base_price": null,
+    "base_price_status": "À confirmer : tarif de nuitée non publié statiquement ; réservation gérée par HBook",
+    "currency": "EUR",
+    "base_guests": 2,
+    "max_guests": 4,
+    "deposit_percent": 100,
+    "breakfast_included": true,
+    "breakfast_price": 0,
+    "salted_breakfast_extra": {
+      "price": 9,
+      "unit": "assiette pour 2 personnes",
+      "order": "À commander la veille"
+    },
+    "extra_guest_price": null,
+    "max_nights": 5,
+    "early_or_late_extra": 20,
+    "early_or_late_notice_hours": 24,
+    "rates": [],
+    "notes": [
+      "Ne pas reprendre les 175 €/nuit et remises de La Cabane des Folies.",
+      "Les tarifs statiques ne suffisent pas à reproduire les saisons et règles HBook.",
+      "Montant intégral demandé à la réservation selon les CGV publiques."
+    ]
+  },
+  "booking": {
+    "check_in": "17h–19h",
+    "check_out": "Avant 11h",
+    "breakfast_delivery": "Avant 8h30 selon la FAQ",
+    "pets_allowed": false,
+    "babies_allowed": true,
+    "baby_cot_free": true,
+    "high_chair_free": true,
+    "payment_methods_public": [
+      "Carte bancaire",
+      "ANCV Connect affiché dans le formulaire",
+      "Chèque, virement ou PayPal sur contact"
+    ],
+    "online_provider": "HBook + Stripe sur le site actuel",
+    "booking_link": "https://lacabaneduchene.fr/#hbook-booking-form-1",
+    "existing_reservations_imported": false,
+    "ical_feeds_imported": false
+  },
+  "faq": [
+    {
+      "question": "À quelle heure peut-on arriver et repartir ?",
+      "answer": "L’arrivée se fait entre 17h et 19h et le départ avant 11h. Une arrivée anticipée ou un départ tardif se demande au moins 24h avant ; supplément annoncé : 20 €."
+    },
+    {
+      "question": "Le petit déjeuner est-il compris ?",
+      "answer": "Oui, le petit déjeuner sucré est inclus pour les occupants, avec livraison du pain et des croissants avant 8h30. Une assiette salée pour deux est proposée à 9 €, sur commande la veille."
+    },
+    {
+      "question": "Les animaux sont-ils acceptés ?",
+      "answer": "Non, les animaux domestiques ne sont pas admis dans la cabane ni sur ses extérieurs."
+    },
+    {
+      "question": "Peut-on cuisiner sur place ?",
+      "answer": "Oui. La cuisine dispose notamment d’une plaque, d’un four, d’un micro-ondes, d’un lave-vaisselle et de vaisselle."
+    },
+    {
+      "question": "Peut-on venir avec un bébé ?",
+      "answer": "Oui. Un lit bébé et une chaise haute peuvent être fournis sur réservation, sans supplément."
+    },
+    {
+      "question": "Combien de personnes la cabane accueille-t-elle ?",
+      "answer": "La capacité maximale annoncée est de quatre personnes, avec un lit double en mezzanine et un canapé convertible."
+    },
+    {
+      "question": "Le bain nordique est-il privatif ?",
+      "answer": "Oui. Il est chauffé toute l’année. Son utilisation demande le respect des consignes et du calme environnant."
+    }
+  ],
+  "surroundings": [
+    {
+      "name": "Cathédrale de Metz",
+      "description": "Une halte dans le centre historique, autour de ses vitraux et de son architecture gothique.",
+      "image": "/images/chene/metz-cathedrale.webp",
+      "url": "https://cathedrale-metz.fr/"
+    },
+    {
+      "name": "Saarlouis",
+      "description": "Une escapade en Sarre entre patrimoine fortifié, places et ruelles de la vieille ville.",
+      "image": "/images/chene/saarlouis.webp",
+      "url": "https://www.visiter-la-sarre.fr/"
+    },
+    {
+      "name": "Château de Malbrouck",
+      "description": "Un château à Manderen, pour une sortie mêlant patrimoine et expositions.",
+      "image": "/images/chene/malbrouck.webp",
+      "url": "https://www.chateau-malbrouck.com/"
+    },
+    {
+      "name": "Centre Pompidou-Metz",
+      "description": "Une parenthèse culturelle entre architecture singulière et expositions d’art.",
+      "image": "/images/chene/pompidou-metz.webp",
+      "url": "https://www.centrepompidou-metz.fr/"
+    },
+    {
+      "name": "Fort aux Fresques",
+      "description": "À Hestroff, un ouvrage de la ligne Maginot marqué par les fresques de ses soldats.",
+      "image": "/images/chene/fort-fresques.webp",
+      "url": "https://www.fortauxfresques.fr/"
+    },
+    {
+      "name": "Zoo d’Amnéville",
+      "description": "Une idée de sortie en famille dans le parc animalier d’Amnéville.",
+      "image": "/images/chene/zoo-amneville.webp",
+      "url": "https://zoo-amneville.com/"
+    }
+  ],
+  "gifts": {
+    "enabled": false,
+    "status": "Module à préconfigurer ; aucune page ni conditions de vente de carte cadeau trouvées sur le site public.",
+    "amount_presets": [
+      50,
+      100,
+      150,
+      200
+    ],
+    "min_amount": 20,
+    "max_amount": 2000,
+    "validity_days": null,
+    "stay_offers": [],
+    "publish_requires": [
+      "Montants validés",
+      "Durée de validité validée",
+      "Conditions de vente validées",
+      "Compte Stripe propre au Chêne",
+      "Adresse e-mail d’envoi vérifiée"
+    ]
+  },
+  "uncertainties": [
+    {
+      "key": "nightly_rates",
+      "message": "Tarifs de nuitée et suppléments : ne pas inventer. Reprendre l’export HBook ou faire confirmer par le propriétaire."
+    },
+    {
+      "key": "gift_policy",
+      "message": "Ni durée ni conditions de carte cadeau publiques trouvées. Le module peut être préparé mais la vente doit rester désactivée tant que ces informations manquent."
+    },
+    {
+      "key": "ancv",
+      "message": "ANCV Connect est affiché dans le formulaire actuel. Aucune intégration ANCV ne doit être prétendue active dans le nouveau site sans implémentation et identifiants dédiés."
+    },
+    {
+      "key": "bookings",
+      "message": "Les réservations, clients, flux iCal et paiements existants ne sont pas accessibles via les pages publiques et ne sont pas importés."
+    },
+    {
+      "key": "legal_address",
+      "message": "Les CGV indiquent 8 rue de la forêt pour le contact et 10 rue de la forêt pour les réclamations. Adresse légale à vérifier."
+    },
+    {
+      "key": "breakfast_delivery",
+      "message": "FAQ : avant 8h30 ; CGV : à partir de 8h15. Présenter une livraison le matin ; l’horaire précis mérite confirmation."
+    },
+    {
+      "key": "legacy_source_page",
+      "message": "Une page publique /la-cabane-du-chene/ conserve des shortcodes Divi mal rendus et des visuels de template ; privilégier la page d’accueil actuelle et les photos réelles récentes."
+    },
+    {
+      "key": "rights",
+      "message": "Les photos sont importées depuis le site existant ; conserver et vérifier les droits associés. Le fichier Malbrouck comporte le crédit Guillaume Ramon dans son nom source."
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://lacabaneduchene.fr/",
+      "purpose": "Présentation, équipements, petit déjeuner et carte"
+    },
+    {
+      "url": "https://lacabaneduchene.fr/nous-contacter-faq/",
+      "purpose": "Contacts et FAQ"
+    },
+    {
+      "url": "https://lacabaneduchene.fr/a-voir-dans-les-environs/",
+      "purpose": "Attractions et images"
+    },
+    {
+      "url": "https://lacabaneduchene.fr/conditions-generales-de-vente/",
+      "purpose": "Capacité, paiement, horaires, règles, données à valider"
+    },
+    {
+      "url": "https://lacabaneduchene.fr/wp-json/wp/v2/media?per_page=100",
+      "purpose": "Inventaire des médias publics et URL originales"
+    }
+  ]
+}
