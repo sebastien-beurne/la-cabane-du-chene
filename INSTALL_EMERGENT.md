@@ -2,7 +2,7 @@
 
 ## Import initial
 
-1. Créer un nouveau dépôt privé `la-cabane-du-chene`, indépendant de La Cabane des Folies. Importer **le contenu de cette racine**, pas un sous-dossier et pas `node_modules`, `.git`, les builds ou les fichiers `.env`.
+1. Utiliser le dépôt indépendant `sebastien-beurne/la-cabane-du-chene`, déjà créé et rempli. Ne pas fusionner ce code dans La Cabane des Folies. Pour une copie ultérieure, importer **le contenu de cette racine**, sans `node_modules`, `.git`, les builds ou les fichiers `.env`.
 2. Autoriser ce nouveau dépôt dans les intégrations GitHub de ChatGPT et d'Emergent si l'accès est limité à certains dépôts.
 3. Dans un nouveau projet Emergent, importer ce dépôt. Demander l'exécution de l'application existante avec [PROMPT_EMERGENT.md](PROMPT_EMERGENT.md), sans régénération graphique ni nouvelle traduction IA.
 4. Installer `backend/requirements.txt` et `frontend` avec son `package-lock.json` (`npm ci`).
