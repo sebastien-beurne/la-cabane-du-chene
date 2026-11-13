@@ -1,3 +1,5 @@
+> Branche Railway : [installation et configuration du déploiement](deploy/railway/README.md). `main` reste dédiée à la compatibilité Emergent.
+
 # La Cabane du Chêne
 
 Application autonome pour le gîte de Valmunster. Source React / FastAPI / MongoDB réutilisée de La Cabane des Folies, adaptée avec les contenus et photos du site `https://lacabaneduchene.fr`. Ce dossier constitue la racine du **nouveau dépôt** ; il n'est pas à fusionner dans le projet Folies.

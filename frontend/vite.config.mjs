@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => {
     resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
     // Public values only. Existing React components keep their proven API config.
     define: {
+      'process.env.REACT_APP_RAILWAY': JSON.stringify(env.REACT_APP_RAILWAY || ''),
       'process.env.REACT_APP_BACKEND_URL': JSON.stringify(env.REACT_APP_BACKEND_URL || ''),
       'process.env.REACT_APP_GTM_ID': JSON.stringify(env.REACT_APP_GTM_ID || ''),
       'process.env.REACT_APP_SITE_URL': JSON.stringify(env.REACT_APP_SITE_URL || 'https://lacabaneduchene.fr'),

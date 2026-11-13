@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSite } from "@/lib/site";
 import { useT } from "@/lib/i18n";
 
-const SITE = process.env.REACT_APP_SITE_URL || "https://lacabaneduchene.fr";
+const SITE = process.env.REACT_APP_RAILWAY === 'true' ? window.location.origin : process.env.REACT_APP_SITE_URL || "https://lacabaneduchene.fr";
 
 function setMeta(attr, key, value) {
   let el = document.head.querySelector(`meta[${attr}="${key}"]`);

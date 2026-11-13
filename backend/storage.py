@@ -83,3 +83,52 @@ def download_to(path: str, dest) -> None:
             drop_cache(f)
     tmp.replace(dest)
 
+
+# Railway: local media volume, no dependency on Emergent's object storage.
+if os.environ.get("APP_ENV") == "railway":
+    import mimetypes
+    import shutil
+    import tempfile
+    from pathlib import Path
+    _media_root = Path(os.environ.get("MEDIA_ROOT", "/app/media")).resolve()
+
+    def _local(path):
+        target = (_media_root / path).resolve()
+        if target == _media_root or not target.is_relative_to(_media_root):
+            raise ValueError("Invalid media path")
+        return target
+
+    def init_storage(force=False):
+        _media_root.mkdir(parents=True, exist_ok=True)
+        return "local"
+
+    def put_stream(path, fileobj, content_type):
+        target = _local(path)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        fileobj.seek(0)
+        with tempfile.NamedTemporaryFile(dir=target.parent, delete=False) as f:
+            tmp = Path(f.name)
+            try:
+                shutil.copyfileobj(fileobj, f, length=1024*1024)
+                f.flush()
+                os.fsync(f.fileno())
+            except BaseException:
+                tmp.unlink(missing_ok=True)
+                raise
+        tmp.replace(target)
+        return {"path": path}
+
+    def put_object(path, data, content_type):
+        import io
+        return put_stream(path, io.BytesIO(data), content_type)
+
+    def get_object(path):
+        f = _local(path)
+        return f.read_bytes(), mimetypes.guess_type(f.name)[0] or "application/octet-stream"
+
+    def download_to(path, dest):
+        source = _local(path)
+        tmp = Path(dest).with_suffix(".part")
+        shutil.copyfile(source, tmp)
+        tmp.replace(dest)
+

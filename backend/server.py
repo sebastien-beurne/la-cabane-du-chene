@@ -33,6 +33,8 @@ import dashboard
 import autoemails
 import translate
 import storage
+import deployment_config
+deployment_config.validate()
 from auth import (hash_password, verify_password, create_access_token, create_refresh_token,
                   decode, set_auth_cookies, make_current_user)
 from defaults import DEFAULT_CONTENT, DEFAULT_PHOTOS
@@ -52,6 +54,13 @@ app = FastAPI(title="La Cabane du Chêne")
 
 
 @app.middleware("http")
+async def payment_configuration(request: Request, call_next):
+    if deployment_config.enabled() and request.method != 'GET' and 'checkout' in request.url.path and not os.environ.get('STRIPE_SECRET_KEY'):
+        return Response(content='{"detail":"Configurer Stripe avant d’activer les paiements"}', status_code=503, media_type='application/json')
+    return await call_next(request)
+
+
+@app.middleware("http")
 async def server_timing(request: Request, call_next):
     """Exposes the backend processing time (Server-Timing header) to tell server time from network time."""
     t0 = time.perf_counter()
@@ -60,6 +69,15 @@ async def server_timing(request: Request, call_next):
     return response
 
 api = APIRouter(prefix="/api")
+
+@api.get('/health')
+async def health():
+    try:
+        await client.admin.command('ping')
+    except Exception:
+        raise HTTPException(503, 'Base de données indisponible')
+    return {'status':'ok','environment':'railway' if deployment_config.enabled() else 'site'}
+
 current_user = make_current_user(db)
 OWNER_EMAIL = os.environ["OWNER_EMAIL"]
 
@@ -331,9 +349,13 @@ async def serve_file(path: str, request: Request):
         w = min((400, 1000, 1600), key=lambda v: abs(v - int(w))) if w.isdigit() and 200 <= int(w) <= 2000 else 0
         # Photos: no pod-local cache (its page cache is billed as pod memory). Resized copies are made once and kept in object storage.
         variant = f"{path}.w{w}.webp"
+        data = None
         if w and w in (rec.get("variants") or []):
-            data, _ = await asyncio.to_thread(storage.get_object, variant)
-        else:
+            try:
+                data, _ = await asyncio.to_thread(storage.get_object, variant)
+            except FileNotFoundError:
+                pass  # Restored original: recreate the missing cached size below.
+        if data is None:
             data, _ = await asyncio.to_thread(storage.get_object, path)
             if w:
                 def shrink(raw):
@@ -772,7 +794,7 @@ async def startup():
         await db.photos.insert_many([{"id": str(uuid.uuid4()), "illustration": False, "deleted": False,
                                       "created_at": now_iso(), **p} for p in DEFAULT_PHOTOS])
     try:
-        if os.environ.get("EMERGENT_LLM_KEY"):
+        if deployment_config.enabled() or os.environ.get("EMERGENT_LLM_KEY"):
             await asyncio.to_thread(storage.init_storage)
     except Exception as e:
         logger.error(f"Storage init failed: {e}")
