@@ -10,7 +10,7 @@ export function SiteProvider({children}){
  const setContent=useCallback(next=>{revision.current++;updateContent(next);announcePublication();},[]);
  const load=useCallback(async()=>{const ticket=++revision.current;try{const[c,p]=await Promise.all([http.get('/content'),http.get('/photos')]);if(ticket===revision.current){if(c.data&&typeof c.data==='object')updateContent(c.data);setPhotos(Array.isArray(p.data)?p.data:[]);}}catch{}finally{setReady(true);}},[]);
  useEffect(()=>{load();},[load]);
- const refresh=useCallback(async()=>{const ticket=++revision.current;const r=await http.get('/content');if(ticket===revision.current&&!window.location.pathname.startsWith('/admin')&&r.data&&typeof r.data==='object')updateContent(r.data);},[]);
+ const refresh=useCallback(async()=>{const ticket=++revision.current;const [r,p]=await Promise.all([http.get('/content'),http.get('/photos')]);if(ticket===revision.current&&!window.location.pathname.startsWith('/admin')){if(r.data&&typeof r.data==='object')updateContent(r.data);if(Array.isArray(p.data))setPhotos(p.data);}},[]);
  usePublicationRefresh(refresh);
  useEffect(()=>{applyTheme(previewTheme||content?.appearance?.theme||DEFAULT_THEME);},[previewTheme,content?.appearance?.theme]);
  const reloadAdmin=useCallback(async()=>{const r=await http.get('/admin/content');revision.current++;updateContent(r.data);},[]);

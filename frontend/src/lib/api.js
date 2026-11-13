@@ -37,7 +37,7 @@ const SMALL = typeof window !== "undefined" && window.matchMedia?.("(max-width: 
 export const img = (u) => {
   if (!u || !u.startsWith("/api/")) return u || "";
   const photo = u.startsWith("/api/files/") && !/\.(mp4|mov|webm|pdf)(#|$)/i.test(u);
-  return `${BASE}${u}${photo && SMALL ? "?w=1000" : ""}`;
+  return `${BASE}${u}${photo && !/[?&]w=/.test(u) ? `${u.includes("?") ? "&" : "?"}w=${SMALL ? 1000 : 1600}` : ""}`;
 };
 
 export function errMsg(e, fallback = "Une erreur est survenue. Merci de réessayer.") {

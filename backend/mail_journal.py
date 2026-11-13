@@ -5,17 +5,12 @@ from datetime import datetime,timezone
 from pymongo import ReturnDocument
 
 def audience_for(record):
-    explicit=record.get('audience')
-    if explicit in {'owner','client'}:return explicit
-    owner=os.environ.get('OWNER_EMAIL','').strip().casefold()
-    recipient=str(record.get('to') or '').strip().casefold()
-    return 'owner' if (owner and owner==recipient) or str(record.get('category') or '').endswith('_proprietaire') else 'client'
+    category=str(record.get('category') or '')
+    if category:return 'owner' if category.endswith('_proprietaire') else 'client'
+    return 'owner' if record.get('audience')=='owner' else 'client'
 
 def audience_query(audience):
-    owner=os.environ.get('OWNER_EMAIL','').strip()
-    import re
-    rules=[{'audience':'owner'},{'category':{'$regex':'_proprietaire$'}}]
-    if owner:rules.append({'to':{'$regex':'^'+re.escape(owner)+'$','$options':'i'}})
+    rules=[{'category':{'$regex':'_proprietaire$'}}, {'$and':[{'category':{'$in':[None,'']}},{'audience':'owner'}]}]
     return {'$or':rules} if audience=='owner' else {'$nor':rules}
 
 async def record_blocked(db, *, to,subject,html,kind='automatique',category='',ref=None,dedupe_key=None,reason='Envoi désactivé dans cet environnement',lang='fr'):

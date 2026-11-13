@@ -121,7 +121,7 @@ export default function Tarifs() {
             <Eyebrow>Demande de réservation</Eyebrow>
             <h2 className="mt-4 mb-3 text-4xl md:text-5xl font-medium leading-[1.05] text-ink">Vos dates à la cabane</h2>
             <p className="mb-8 text-muted-ink leading-relaxed">Vos dates et le tarif sont confirmés personnellement. Votre demande ne vaut pas réservation tant que nous ne l’avons pas validée.</p>
-            {pReady(site?.content?.pricing) ? <Suspense fallback={<p>Chargement…</p>}><BookingForm /></Suspense> : <QuoteRequest />}
+            {(site?.content?.pricing?.rates || []).some(r => Number(r.price)>0) ? <Suspense fallback={<p>Chargement…</p>}><BookingForm enabled={pReady(site?.content?.pricing)} /></Suspense> : <QuoteRequest />}
             <GreenGoLink className="mt-10" testid="tarifs-greengo" />
             {platforms.length > 0 && (
               <div className="mt-12 border-t border-brand/15 pt-8">

@@ -26,7 +26,7 @@ function useMonths() {
   return n;
 }
 
-export default function BookingForm() {
+export default function BookingForm({ enabled = true }) {
   const { t, td, fmtDate, dateLocale } = useT();
   const site = useSite();
   const pricing = site?.content?.pricing || {};
@@ -125,6 +125,7 @@ export default function BookingForm() {
 
   const submit = async (e) => {
     e.preventDefault();
+    if (!enabled) return;
     if (!n) return toast.error(t("bk.pickDates"));
     if (qs.error) return toast.error(quoteErr);
     if (!quote || quoteBusy) return toast.error(t("bk.wait"));
@@ -165,6 +166,7 @@ export default function BookingForm() {
 
   return (
     <form onSubmit={submit} data-testid="booking-form" data-no-translate className="space-y-7" noValidate>
+      {!enabled && <p data-testid="booking-preview-notice" role="status" className="rounded-md bg-amber-50 border border-amber-200 p-4 text-sm text-amber-950">{td("Tarif indicatif : tarifs et calendrier en attente de validation. Aucune réservation ni aucun paiement ne sera enregistré.")}</p>}
       <div className="relative rounded-md border border-brand/15 bg-white p-3 md:p-5" aria-busy={avail === "loading"} aria-label={t("cal.label")} role="group">
         <div>
         <Calendar
@@ -229,30 +231,30 @@ export default function BookingForm() {
       </div>
       <div className="grid gap-5 sm:grid-cols-2" data-testid="booking-contact-fields">
         <Field label={t("bk.firstName")} htmlFor="b-first">
-          <input id="b-first" required autoComplete="given-name" value={form.first_name} onChange={set("first_name")} className={inputCls} data-testid="booking-form-first-name" />
+          <input id="b-first" minLength={1} maxLength={60} required autoComplete="given-name" value={form.first_name} onChange={set("first_name")} className={inputCls} data-testid="booking-form-first-name" />
         </Field>
         <Field label={t("bk.lastName")} htmlFor="b-last">
-          <input id="b-last" required autoComplete="family-name" value={form.last_name} onChange={set("last_name")} className={inputCls} data-testid="booking-form-last-name" />
+          <input id="b-last" minLength={1} maxLength={60} required autoComplete="family-name" value={form.last_name} onChange={set("last_name")} className={inputCls} data-testid="booking-form-last-name" />
         </Field>
         <Field label={t("bk.email")} htmlFor="b-email">
           <input id="b-email" type="email" required autoComplete="email" value={form.email} onChange={set("email")} className={inputCls} data-testid="booking-form-email" />
         </Field>
         <Field label={t("bk.phone")} htmlFor="b-phone">
-          <input id="b-phone" type="tel" required autoComplete="tel" value={form.phone} onChange={set("phone")} className={inputCls} data-testid="booking-form-phone" />
+          <input id="b-phone" minLength={6} maxLength={40} type="tel" required autoComplete="tel" value={form.phone} onChange={set("phone")} className={inputCls} data-testid="booking-form-phone" />
         </Field>
         <div className="sm:col-span-2">
           <Field label={t("bk.street")} htmlFor="b-street">
-            <input id="b-street" required autoComplete="street-address" value={form.street} onChange={set("street")} className={inputCls} data-testid="booking-form-street" />
+            <input id="b-street" minLength={3} maxLength={160} required autoComplete="street-address" value={form.street} onChange={set("street")} className={inputCls} data-testid="booking-form-street" />
           </Field>
         </div>
         <Field label={t("bk.zip")} htmlFor="b-zip">
-          <input id="b-zip" required autoComplete="postal-code" value={form.postal_code} onChange={set("postal_code")} className={inputCls} data-testid="booking-form-postal-code" />
+          <input id="b-zip" minLength={2} maxLength={20} required autoComplete="postal-code" value={form.postal_code} onChange={set("postal_code")} className={inputCls} data-testid="booking-form-postal-code" />
         </Field>
         <Field label={t("bk.city")} htmlFor="b-city">
-          <input id="b-city" required autoComplete="address-level2" value={form.city} onChange={set("city")} className={inputCls} data-testid="booking-form-city" />
+          <input id="b-city" minLength={1} maxLength={80} required autoComplete="address-level2" value={form.city} onChange={set("city")} className={inputCls} data-testid="booking-form-city" />
         </Field>
         <Field label={t("bk.country")} htmlFor="b-country">
-          <input id="b-country" required autoComplete="country-name" value={form.country} onChange={set("country")} className={inputCls} data-testid="booking-form-country" />
+          <input id="b-country" minLength={2} maxLength={60} required autoComplete="country-name" value={form.country} onChange={set("country")} className={inputCls} data-testid="booking-form-country" />
         </Field>
       </div>
       {options.length > 0 && (
@@ -281,7 +283,7 @@ export default function BookingForm() {
         error={n > 0 ? quoteErr : ""} onRetry={() => setQuoteTry((v) => v + 1)} />
       <PaymentChoice value={form.payment_method} onChange={setPayMethod} quote={quote} />
       <Consent checked={form.consent} onChange={(v) => setForm((f) => ({ ...f, consent: v }))} testid="booking-form-consent" />
-      <button type="submit" disabled={sending || quoteBusy} data-testid="booking-form-submit"
+      <button type="submit" disabled={!enabled || sending || quoteBusy} data-testid="booking-form-submit"
         className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-action px-6 py-4 font-semibold text-on-dark transition-colors hover:bg-action-strong disabled:opacity-60">
         {(sending || quoteBusy) && <Loader2 size={18} className="animate-spin" />} {quoteBusy ? t("bk.calculating") : t("bk.submit")}
       </button>

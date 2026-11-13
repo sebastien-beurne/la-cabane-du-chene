@@ -1,5 +1,5 @@
+import {useT} from "@/lib/i18n";
 import { motion } from "framer-motion";
-import { useT } from "@/lib/i18n";
 
 const EASE = [0.22, 1, 0.36, 1];
 
@@ -34,16 +34,16 @@ export function splitLines(text = "", max = 18) {
 }
 
 export function MaskLines({ lines, onLoad = false, delay = 0, lineClass = "" }) {
-  const { td } = useT();
-  const translatedLines = splitLines(td(lines.join(" ")), Math.max(18, ...lines.map((s) => s.length)));
+  const {td}=useT();
+  const translatedLines=splitLines(td(lines.join(" ")),22);
   const line = {
     hidden: { y: "105%" },
     show: (i) => ({ y: "0%", transition: { duration: 1.1, ease: EASE, delay: delay + i * 0.12 } }),
   };
   return (
     <motion.span
-      className="block"
       data-no-translate
+      className="block"
       initial="hidden"
       {...(onLoad ? { animate: "show" } : { whileInView: "show", viewport: { once: true, amount: 0.1 } })}
     >
@@ -60,9 +60,8 @@ export function MaskLines({ lines, onLoad = false, delay = 0, lineClass = "" }) 
 
 export function Eyebrow({ children, light = false, className = "" }) {
   return (
-    <p className={`text-xs uppercase tracking-[0.24em] font-semibold ${light ? "text-gold" : "text-action"} ${className}`}>
+    <p className={`text-xs uppercase tracking-[0.24em] font-semibold ${light ? "text-glow" : "text-accent"} ${className}`}>
       {children}
     </p>
   );
 }
-

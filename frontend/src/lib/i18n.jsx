@@ -54,7 +54,7 @@ const bundles = {};
 /** Prepared translations of the fixed texts and site content, shipped with the site (public/i18n/<lang>.json). */
 function loadBundle(l) {
   if (!bundles[l]) {
-    bundles[l] = fetch(`/i18n/${l}.json?v=chene-20261112-r6`, { cache: "force-cache" }).then((r) => (r.ok ? r.json() : {})).catch(() => ({}));
+    bundles[l] = fetch(`/i18n/${l}.json?v=cabane-20261113-r7`, { cache: "force-cache" }).then((r) => (r.ok ? r.json() : {})).catch(() => ({}));
   }
   return bundles[l];
 }

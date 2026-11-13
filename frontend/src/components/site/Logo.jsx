@@ -1,3 +1,5 @@
+import {useSite} from "@/lib/site";
+import {img} from "@/lib/api";
 export function LogoMark({ className = "h-9 w-9", light = false }) {
   const stroke = light ? "#F8F5F0" : "#1B2B24";
   return (
@@ -11,6 +13,9 @@ export function LogoMark({ className = "h-9 w-9", light = false }) {
 }
 
 export function Logo({ light = false }) {
+  const g=useSite()?.content?.general||{};
+  const source=g.logo||"/images/chene/logo-chene.webp";
+  if(source)return <img src={img(source)} alt={g.name||"La Cabane du Chêne"} data-no-translate data-testid="property-logo" className="h-14 w-auto max-w-[180px] object-contain sm:h-16 sm:max-w-[220px]" />;
   return (
     <span className="flex min-w-0 items-center gap-2.5 sm:gap-3">
       <LogoMark light={light} className="h-8 w-8 shrink-0 sm:h-9 sm:w-9" />
