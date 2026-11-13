@@ -21,8 +21,19 @@ for attempt in {1..60}; do
     // The app intentionally uses directConnection=true against the private service hostname.
     let config;
     try { config = rs.conf(); } catch(e) {
-      if (e.code !== 94) throw e;
-      rs.initiate({_id:"rs0",members:[{_id:0,host:"localhost:27017"}]});
+      // With keyFile authentication, a fresh node can reject rs.conf with
+      // Unauthorized (13) before the localhost bootstrap exception is used.
+      // Only attempt bootstrap when authentication has not succeeded; no
+      // authentication or network protection is ever disabled.
+      if (e.code !== 94 && !(e.code === 13 && !authenticated)) throw e;
+      try {
+        rs.initiate({_id:"rs0",members:[{_id:0,host:"localhost:27017"}]});
+      } catch (initError) {
+        // A previous attempt may have initialized the replica set before
+        // creating the first user. Existing users with a wrong password
+        // still fail authorization; never reset their credentials or data.
+        if (initError.code !== 23) throw initError;
+      }
     }
     if (config && config.members[0].host !== "localhost:27017") {
       config.members[0].host = "localhost:27017";
