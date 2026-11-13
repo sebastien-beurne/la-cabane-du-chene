@@ -31,8 +31,8 @@ export default function ContactForm({ initialSubject = "", initialMessage = "" }
 
   if (done) {
     return (
-      <div data-testid="contact-success" data-no-translate className="rounded-md bg-[#2D4A3E] p-8 text-[#F8F5F0]">
-        <CheckCircle2 size={32} className="text-[#E3B48A]" />
+      <div data-testid="contact-success" data-no-translate className="rounded-md bg-brand p-8 text-on-dark">
+        <CheckCircle2 size={32} className="text-gold" />
         <h3 className="mt-4 text-3xl font-medium">{t("ct.sentTitle")}</h3>
         <p className="mt-3 text-[#D9DFDA]">{t("ct.sentText")}</p>
       </div>
@@ -51,7 +51,7 @@ export default function ContactForm({ initialSubject = "", initialMessage = "" }
       <Honeypot value={form.website} onChange={set("website")} />
       <Consent checked={form.consent} onChange={(v) => setForm((f) => ({ ...f, consent: v }))} testid="contact-form-consent" />
       <button type="submit" disabled={sending} data-testid="contact-form-submit"
-        className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[#2D4A3E] px-8 py-4 font-semibold text-[#F8F5F0] transition-colors hover:bg-[#1B2B24] disabled:opacity-60">
+        className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-brand px-8 py-4 font-semibold text-on-dark transition-colors hover:bg-ink disabled:opacity-60">
         {sending && <Loader2 size={18} className="animate-spin" />} {t("ct.submit")}
       </button>
     </form>

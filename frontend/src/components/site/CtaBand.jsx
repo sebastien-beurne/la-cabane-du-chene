@@ -6,10 +6,10 @@ import { MaskLines, splitLines, Reveal, Eyebrow } from "./Motion";
 
 export function Btn({ to, href, children, variant = "rust", testid, className = "" }) {
   const styles = {
-    rust: "bg-[#B35432] text-[#F8F5F0] hover:bg-[#944125]",
-    light: "bg-[#F8F5F0] text-[#1B2B24] hover:bg-white",
-    ghostLight: "border border-[#F8F5F0]/50 text-[#F8F5F0] hover:bg-[#F8F5F0]/10",
-    ghost: "border border-[#2D4A3E]/30 text-[#1B2B24] hover:bg-[#2D4A3E] hover:text-[#F8F5F0]",
+    rust: "bg-action text-on-dark hover:bg-action-strong",
+    light: "bg-paper text-ink hover:bg-white",
+    ghostLight: "border border-paper/50 text-on-dark hover:bg-paper/10",
+    ghost: "border border-brand/30 text-ink hover:bg-brand hover:text-on-dark",
   };
   const cls = `group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold transition-[background-color,color,transform] duration-300 hover:-translate-y-0.5 ${styles[variant]} ${className}`;
   const inner = (<>{children}<ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" /></>);
@@ -22,11 +22,11 @@ export default function CtaBand() {
   const h = site?.content?.home || {};
   const photo = site?.pick("pergola", "bain", "jardin");
   return (
-    <section data-testid="final-cta" className="relative overflow-hidden bg-[#1B2B24] grain">
+    <section data-testid="final-cta" className="relative overflow-hidden bg-ink grain">
       <div className="mx-auto max-w-7xl px-5 md:px-10 py-24 md:py-32 grid gap-12 lg:grid-cols-12 items-center">
         <div className="lg:col-span-7 relative z-10">
           <Eyebrow light>Réservation directe</Eyebrow>
-          <h2 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-medium leading-[1.02] text-[#F8F5F0]">
+          <h2 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-medium leading-[1.02] text-on-dark">
             <MaskLines lines={splitLines(h.cta_title || "Et si votre prochaine escapade commençait ici ?", 24)} />
           </h2>
           <Reveal delay={0.2}>

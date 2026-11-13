@@ -1,3 +1,6 @@
+import {useSite} from '@/lib/site';
+import SeasonalDecor from './SeasonalDecor';
+import {themeById} from '@/lib/themes';
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import LangSwitcher from "./LangSwitcher";
@@ -19,7 +22,7 @@ export const NAV = [
   { to: "/contact", id: "contact" },
 ];
 
-export default function Navbar() {
+export default function Navbar() {const seasonalSite=useSite();const seasonalQuery=new URLSearchParams(useLocation().search).get('theme-preview');const seasonalTheme=seasonalQuery&&themeById(seasonalQuery).id===seasonalQuery?seasonalQuery:seasonalSite.previewTheme||seasonalSite.content?.appearance?.theme;
   const { t } = useT();
   const { pathname } = useLocation();
   const [scrolled, setScrolled] = useState(false);
@@ -44,7 +47,7 @@ export default function Navbar() {
       data-testid="site-header"
       data-no-translate
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,padding] duration-500 ${
-        overHero ? "bg-transparent py-5" : "bg-[#F8F5F0]/85 backdrop-blur-xl shadow-[0_1px_0_rgba(45,74,62,0.12)] py-3"
+        overHero ? "bg-transparent py-5" : "bg-paper/85 backdrop-blur-xl shadow-[0_1px_0_rgba(45,74,62,0.12)] py-3"
       }`}
     >
       <div className="mx-auto flex max-w-7xl flex-nowrap md:flex-wrap items-center justify-between gap-x-2 gap-y-3 px-4 sm:px-5 md:px-10">
@@ -52,7 +55,7 @@ export default function Navbar() {
           <Logo light={overHero} />
         </Link>
         <nav data-testid="desktop-nav" aria-label={t("nav.main")}
-          className={`hidden md:flex order-last w-full flex-wrap items-center justify-center gap-x-6 gap-y-2 border-t pt-3 2xl:order-none 2xl:w-auto 2xl:border-0 2xl:pt-0 2xl:gap-7 ${overHero ? "border-white/20" : "border-[#2D4A3E]/10"}`}>
+          className={`hidden md:flex order-last w-full flex-wrap items-center justify-center gap-x-6 gap-y-2 border-t pt-3 2xl:order-none 2xl:w-auto 2xl:border-0 2xl:pt-0 2xl:gap-7 ${overHero ? "border-white/20" : "border-brand/10"}`}>
           {NAV.map((n) => (
             <NavLink
               key={n.to}
@@ -61,10 +64,10 @@ export default function Navbar() {
               className={({ isActive }) =>
                 `relative inline-flex items-center gap-1.5 text-sm font-medium transition-colors after:absolute after:-bottom-1 after:left-0 after:h-px after:bg-current after:transition-[width] after:duration-500 hover:after:w-full ${
                   isActive ? "after:w-full" : "after:w-0"
-                } ${overHero ? "text-[#F8F5F0]" : "text-[#1B2B24]"}`
+                } ${overHero ? "text-on-dark" : "text-ink"}`
               }
             >
-              {n.Icon && <n.Icon size={15} aria-hidden className={overHero ? "text-[#E3B48A]" : "text-[#B35432]"} />}
+              {n.Icon && <n.Icon size={15} aria-hidden className={overHero ? "text-gold" : "text-action"} />}
               {t(`nav.${n.id}`)}
             </NavLink>
           ))}
@@ -74,7 +77,7 @@ export default function Navbar() {
           <Link
             to="/tarifs-disponibilites#reserver"
             data-testid="nav-cta-reserve"
-            className="hidden sm:inline-flex items-center rounded-full bg-[#B35432] px-5 py-2.5 text-sm font-semibold text-[#F8F5F0] transition-[background-color,transform] duration-300 hover:bg-[#944125] hover:-translate-y-0.5"
+            className="hidden sm:inline-flex items-center rounded-full bg-action px-5 py-2.5 text-sm font-semibold text-on-dark transition-[background-color,transform] duration-300 hover:bg-action-strong hover:-translate-y-0.5"
           >
             {t("nav.book")}
           </Link>
@@ -85,7 +88,7 @@ export default function Navbar() {
             aria-expanded={open}
             onClick={() => setOpen((o) => !o)}
             className={`md:hidden grid h-11 w-11 place-items-center rounded-full border ${
-              overHero ? "border-white/40 text-[#F8F5F0]" : "border-[#2D4A3E]/25 text-[#1B2B24]"
+              overHero ? "border-white/40 text-on-dark" : "border-brand/25 text-ink"
             }`}
           >
             {open ? <X size={20} /> : <Menu size={20} />}
@@ -103,13 +106,13 @@ export default function Navbar() {
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="md:hidden fixed inset-x-0 top-[68px] bottom-0 z-[45] bg-[#1B2B24] px-6 pt-10 pb-10 flex flex-col overflow-y-auto"
+            className="md:hidden fixed inset-x-0 top-[68px] bottom-0 z-[45] bg-ink px-6 pt-10 pb-10 flex flex-col overflow-y-auto"
           >
-            <nav className="flex flex-col gap-5" aria-label={t("nav.mobile")}>
+            <SeasonalDecor theme={seasonalTheme} variant="menu"/><nav className="flex flex-col gap-5" aria-label={t("nav.mobile")}>
               {[{ to: "/", id: "home", tid: "accueil" }, ...NAV].map((n, i) => (
                 <motion.div key={n.to} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 + i * 0.05 }}>
-                  <Link to={n.to} data-testid={`mobile-nav-${n.tid || n.id}`} className="inline-flex items-center gap-3 font-display text-4xl text-[#F8F5F0]">
-                    {n.Icon && <n.Icon size={28} aria-hidden className="text-[#E3B48A]" />}
+                  <Link to={n.to} data-testid={`mobile-nav-${n.tid || n.id}`} className="inline-flex items-center gap-3 font-display text-4xl text-on-dark">
+                    {n.Icon && <n.Icon size={28} aria-hidden className="text-gold" />}
                     {t(`nav.${n.id}`)}
                   </Link>
                 </motion.div>
@@ -119,7 +122,7 @@ export default function Navbar() {
             <Link
               to="/tarifs-disponibilites#reserver"
               data-testid="mobile-menu-book"
-              className="mt-auto inline-flex justify-center rounded-full bg-[#B35432] px-6 py-4 font-semibold text-[#F8F5F0]"
+              className="mt-auto inline-flex justify-center rounded-full bg-action px-6 py-4 font-semibold text-on-dark"
             >
               {t("nav.book")}
             </Link>

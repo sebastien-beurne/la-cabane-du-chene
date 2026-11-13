@@ -15,6 +15,18 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)'
       },
       colors: {
+        "ink": 'rgb(var(--theme-ink) / <alpha-value>)',
+        "brand": 'rgb(var(--theme-brand) / <alpha-value>)',
+        "action": 'rgb(var(--theme-action) / <alpha-value>)',
+        "action-strong": 'rgb(var(--theme-action-strong) / <alpha-value>)',
+        "paper": 'rgb(var(--theme-paper) / <alpha-value>)',
+        "canvas": 'rgb(var(--theme-canvas) / <alpha-value>)',
+        "sand": 'rgb(var(--theme-sand) / <alpha-value>)',
+        "gold": 'rgb(var(--theme-gold) / <alpha-value>)',
+        "muted-ink": 'rgb(var(--theme-muted-ink) / <alpha-value>)',
+        "body": 'rgb(var(--theme-body) / <alpha-value>)',
+        "on-dark": 'rgb(var(--theme-on-dark) / <alpha-value>)',
+
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {

@@ -15,9 +15,9 @@ import { useT } from "@/lib/i18n";
 
 function Row({ icon: I, label, value, testid }) {
   return (
-    <div className="flex items-start justify-between gap-6 border-b border-[#2D4A3E]/15 py-4" data-testid={testid}>
-      <span className="flex items-center gap-3 text-sm text-[#526058]"><I size={16} strokeWidth={1.6} /> {label}</span>
-      <span className="text-right font-medium text-[#1B2B24]">{value}</span>
+    <div className="flex items-start justify-between gap-6 border-b border-brand/15 py-4" data-testid={testid}>
+      <span className="flex items-center gap-3 text-sm text-muted-ink"><I size={16} strokeWidth={1.6} /> {label}</span>
+      <span className="text-right font-medium text-ink">{value}</span>
     </div>
   );
 }
@@ -33,7 +33,7 @@ function PriceCard() {
   const extra = Number(p.extra_guest_per_night) || 0;
   return (
     <div className="space-y-10" data-no-translate data-testid="price-card">
-      <div data-testid="price-main" className="rounded-md bg-[#2D4A3E] p-7 md:p-9 text-[#F8F5F0]">
+      <div data-testid="price-main" className="rounded-md bg-brand p-7 md:p-9 text-on-dark">
         <Eyebrow light>{p.base_guests ? t("pc.title", { n: p.base_guests }) : t("pc.titleShort")}</Eyebrow>
         {rates.length > 0 ? (
           <div className="mt-5 divide-y divide-white/15" data-testid="price-rates">
@@ -63,29 +63,29 @@ function PriceCard() {
       </div>
       {seasons.length > 0 && (
         <div data-testid="price-seasons">
-          <h3 className="text-2xl font-medium text-[#1B2B24] mb-2">{t("pc.season")}</h3>
+          <h3 className="text-2xl font-medium text-ink mb-2">{t("pc.season")}</h3>
           {seasons.map((s, i) => <Row key={i} icon={Tag} label={`${td(s.name)}${s.period ? ` · ${td(s.period)}` : ""}`} value={s.price ? td(s.price) : t("q.onRequest")} />)}
         </div>
       )}
       {fees.length > 0 && (
         <div data-testid="price-fees">
-          <h3 className="text-2xl font-medium text-[#1B2B24] mb-2">{t("pc.fees")}</h3>
+          <h3 className="text-2xl font-medium text-ink mb-2">{t("pc.fees")}</h3>
           {fees.map((f, i) => <Row key={i} icon={Tag} label={td(f.label)} value={td(f.amount) || "—"} />)}
         </div>
       )}
       {options.length > 0 && (
         <div data-testid="price-options">
-          <h3 className="text-2xl font-medium text-[#1B2B24] mb-2">{t("pc.options")}</h3>
+          <h3 className="text-2xl font-medium text-ink mb-2">{t("pc.options")}</h3>
           {options.map((o, i) => (
-            <div key={i} className="border-b border-[#2D4A3E]/15 py-4">
-              <div className="flex justify-between gap-6"><span className="text-[#1B2B24] font-medium">{td(o.label)}</span><span className="text-[#1B2B24]">{o.price ? (Number.isFinite(Number(o.price)) ? eur(o.price) : td(o.price)) : t("q.onRequest")}</span></div>
-              {o.note && <p className="mt-1 text-xs text-[#526058]">{td(o.note)}</p>}
+            <div key={i} className="border-b border-brand/15 py-4">
+              <div className="flex justify-between gap-6"><span className="text-ink font-medium">{td(o.label)}</span><span className="text-ink">{o.price ? (Number.isFinite(Number(o.price)) ? eur(o.price) : td(o.price)) : t("q.onRequest")}</span></div>
+              {o.note && <p className="mt-1 text-xs text-muted-ink">{td(o.note)}</p>}
             </div>
           ))}
         </div>
       )}
-      <div data-testid="price-cancellation" className="rounded-md bg-[#EFEAE1] p-6 text-sm leading-relaxed text-[#33423A] space-y-3">
-        <p className="flex items-center gap-2 font-semibold text-[#1B2B24]"><ShieldCheck size={16} /> {t("pc.cancel")}</p>
+      <div data-testid="price-cancellation" className="rounded-md bg-sand p-6 text-sm leading-relaxed text-body space-y-3">
+        <p className="flex items-center gap-2 font-semibold text-ink"><ShieldCheck size={16} /> {t("pc.cancel")}</p>
         <p>{td(p.cancellation || "Les conditions d'annulation vous sont communiquées avec la confirmation de votre séjour.")}</p>
         <p>{td(p.payment_note)}</p>
       </div>
@@ -114,21 +114,21 @@ export default function Tarifs() {
         path="/tarifs-disponibilites" />
       <PageHeader testid="tarifs-header" eyebrow="Tarifs & disponibilités" title="Choisissez vos dates, on s'occupe du reste" photo={site?.pick("terrasse", "jardin")}
         intro="Réservez en direct : une demande simple, une réponse personnelle, et aucune donnée bancaire collectée en ligne." />
-      <section className="bg-[#FBF9F5] py-20 md:py-28">
+      <section className="bg-canvas py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 md:px-10 grid gap-16 lg:grid-cols-12">
           <Reveal className="lg:col-span-5 order-2 lg:order-1"><PriceCard /></Reveal>
           <div id="reserver" className="lg:col-span-7 order-1 lg:order-2 scroll-mt-24">
             <Eyebrow>Demande de réservation</Eyebrow>
-            <h2 className="mt-4 mb-3 text-4xl md:text-5xl font-medium leading-[1.05] text-[#1B2B24]">Vos dates à la cabane</h2>
-            <p className="mb-8 text-[#526058] leading-relaxed">Vos dates et le tarif sont confirmés personnellement. Votre demande ne vaut pas réservation tant que nous ne l’avons pas validée.</p>
+            <h2 className="mt-4 mb-3 text-4xl md:text-5xl font-medium leading-[1.05] text-ink">Vos dates à la cabane</h2>
+            <p className="mb-8 text-muted-ink leading-relaxed">Vos dates et le tarif sont confirmés personnellement. Votre demande ne vaut pas réservation tant que nous ne l’avons pas validée.</p>
             {pReady(site?.content?.pricing) ? <Suspense fallback={<p>Chargement…</p>}><BookingForm /></Suspense> : <QuoteRequest />}
             <GreenGoLink className="mt-10" testid="tarifs-greengo" />
             {platforms.length > 0 && (
-              <div className="mt-12 border-t border-[#2D4A3E]/15 pt-8">
-                <p className="text-sm text-[#526058] mb-4">Vous préférez passer par une plateforme ?</p>
+              <div className="mt-12 border-t border-brand/15 pt-8">
+                <p className="text-sm text-muted-ink mb-4">Vous préférez passer par une plateforme ?</p>
                 <div className="flex flex-wrap gap-3">
                   {platforms.map(([l, u]) => (
-                    <a key={l} href={u} target="_blank" rel="noreferrer" data-testid={`platform-${l.toLowerCase()}`} className="inline-flex items-center gap-1 rounded-full border border-[#2D4A3E]/25 px-4 py-2 text-sm text-[#1B2B24] hover:bg-[#EFEAE1]">
+                    <a key={l} href={u} target="_blank" rel="noreferrer" data-testid={`platform-${l.toLowerCase()}`} className="inline-flex items-center gap-1 rounded-full border border-brand/25 px-4 py-2 text-sm text-ink hover:bg-sand">
                       {l} <ArrowUpRight size={14} />
                     </a>
                   ))}

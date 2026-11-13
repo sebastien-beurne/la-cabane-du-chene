@@ -17,7 +17,7 @@ export function Tile({ p, onClick, className = "", testid }) {
   const { t, td } = useT();
   return (
     <button type="button" onClick={onClick} data-testid={testid} data-no-translate
-      className={`group relative overflow-hidden rounded-md bg-[#EFEAE1] ${className}`} aria-label={t("gal.enlarge", { alt: td(p.alt) })}>
+      className={`group relative overflow-hidden rounded-md bg-sand ${className}`} aria-label={t("gal.enlarge", { alt: td(p.alt) })}>
       <img src={img(p.url)} alt={td(p.alt)} loading="lazy" decoding="async"
         className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105" />
       <span className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -58,8 +58,8 @@ function RoomCarousel({ cat, photos, onOpen }) {
   return (
     <section className="min-w-0" data-testid={`room-${cat}`} data-no-translate>
       <div className="mb-3 flex items-baseline justify-between gap-3">
-        <h3 className="font-display text-2xl text-[#1B2B24]">{catName(t, cat)}</h3>
-        <span className="flex items-center gap-1.5 text-xs text-[#526058]" data-testid={`room-${cat}-count`}><Images size={14} /> {many ? `${at + 1} / ${photos.length}` : t("gal.one")}</span>
+        <h3 className="font-display text-2xl text-ink">{catName(t, cat)}</h3>
+        <span className="flex items-center gap-1.5 text-xs text-muted-ink" data-testid={`room-${cat}-count`}><Images size={14} /> {many ? `${at + 1} / ${photos.length}` : t("gal.one")}</span>
       </div>
       <div className="group/room relative">
         <div ref={track} onScroll={onScroll} data-testid={`room-${cat}-track`}
@@ -72,9 +72,9 @@ function RoomCarousel({ cat, photos, onOpen }) {
         {many && (
           <>
             <button type="button" onClick={() => goTo(Math.max(0, at - 1))} disabled={at === 0} aria-label={t("lb.prev")} data-testid={`room-${cat}-prev`}
-              className="absolute left-3 top-1/2 hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-[#1B2B24] shadow transition-opacity disabled:opacity-0 sm:grid"><ChevronLeft size={18} /></button>
+              className="absolute left-3 top-1/2 hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink shadow transition-opacity disabled:opacity-0 sm:grid"><ChevronLeft size={18} /></button>
             <button type="button" onClick={() => goTo(Math.min(photos.length - 1, at + 1))} disabled={at === photos.length - 1} aria-label={t("lb.next")} data-testid={`room-${cat}-next`}
-              className="absolute right-3 top-1/2 hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-[#1B2B24] shadow transition-opacity disabled:opacity-0 sm:grid"><ChevronRight size={18} /></button>
+              className="absolute right-3 top-1/2 hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink shadow transition-opacity disabled:opacity-0 sm:grid"><ChevronRight size={18} /></button>
           </>
         )}
       </div>
@@ -82,7 +82,7 @@ function RoomCarousel({ cat, photos, onOpen }) {
         <div className="mt-3 flex justify-center gap-1.5">
           {photos.map((p, i) => (
             <button key={p.id || p.url} type="button" onClick={() => goTo(i)} aria-label={t("gal.photoN", { n: i + 1 })} data-testid={`room-${cat}-dot-${i}`}
-              className={`h-1.5 rounded-full transition-[width,background-color] duration-300 ${i === at ? "w-6 bg-[#B35432]" : "w-1.5 bg-[#2D4A3E]/25"}`} />
+              className={`h-1.5 rounded-full transition-[width,background-color] duration-300 ${i === at ? "w-6 bg-action" : "w-1.5 bg-brand/25"}`} />
           ))}
         </div>
       )}
@@ -101,12 +101,12 @@ export default function Gallery({ photos }) {
       <div className="no-scrollbar -mx-5 px-5 mb-8 flex gap-2 overflow-x-auto" role="group" aria-label={t("gal.filters")} data-no-translate>
         {["tout", ...cats].map((c) => (
           <button key={c} onClick={() => setCat(c)} data-testid={`gallery-filter-${c}`} aria-pressed={cat === c}
-            className={`shrink-0 rounded-full px-4 py-2 text-sm transition-colors duration-300 ${cat === c ? "bg-[#2D4A3E] text-[#F8F5F0]" : "border border-[#2D4A3E]/25 text-[#1B2B24] hover:bg-[#EFEAE1]"}`}>
+            className={`shrink-0 rounded-full px-4 py-2 text-sm transition-colors duration-300 ${cat === c ? "bg-brand text-on-dark" : "border border-brand/25 text-ink hover:bg-sand"}`}>
             {c === "tout" ? t("gal.all") : catName(t, c)}
           </button>
         ))}
       </div>
-      <p className="mb-6 text-sm text-[#526058] sm:hidden" data-no-translate>{t("gal.swipe")}</p>
+      <p className="mb-6 text-sm text-muted-ink sm:hidden" data-no-translate>{t("gal.swipe")}</p>
       <div className={`grid gap-x-6 gap-y-10 ${shown.length > 1 ? "md:grid-cols-2" : ""}`}>
         {shown.map((c) => (
           <RoomCarousel key={c} cat={c} photos={photos.filter((p) => p.category === c)} onOpen={(list, i) => setBox({ list, i })} />

@@ -71,3 +71,20 @@ async def test_media_roundtrip_traversal_and_missing_cached_size(app_client):
  r=await c.get('/api/files/'+path+'?w=400');assert r.status_code==200 and r.headers['content-type']=='image/webp'
  with Image.open(io.BytesIO(r.content)) as im:assert im.width==400
  assert s.storage.get_object(path+'.w400.webp')[0]==r.content
+
+@pytest.mark.anyio
+@pytest.mark.parametrize('theme',['spring','summer','autumn','winter','halloween','christmas','easter','valentine'])
+async def test_seasonal_theme_publication_preserves_other_content(app_client,theme):
+ s,c=app_client
+ assert (await c.put('/api/admin/appearance',json={'theme':theme})).status_code==401
+ assert (await c.post('/api/auth/login',json={'email':'owner@example.com','password':'RailwayTestsOnly123!'})).status_code==200
+ await s.db.settings.update_one({'key':'content'},{'$set':{'data.general.name':'Keep identity','data.pricing.marker':'Keep pricing'}},upsert=True)
+ r=await c.put('/api/admin/appearance',json={'theme':theme});assert r.status_code==200
+ assert r.json()['appearance']['theme']==theme and r.json()['general']['name']=='Keep identity'
+ # A stale generic editor must not overwrite a more recently published theme.
+ stale=r.json();stale['appearance']['theme']='nature';stale['general']['name']='Updated identity'
+ # Chene only supports signature as its base identity; generic stale appearance is ignored.
+ if 'setup' not in stale:stale.pop('appearance')
+ assert (await c.put('/api/admin/content',json=stale)).status_code==200
+ assert (await c.get('/api/content')).json()['appearance']['theme']==theme
+ assert (await c.put('/api/admin/appearance',json={'theme':'invalid'})).status_code==422

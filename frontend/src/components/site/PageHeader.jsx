@@ -8,7 +8,7 @@ export default function PageHeader({ eyebrow, title, intro, photo, testid }) {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
   return (
-    <section ref={ref} data-testid={testid} className="relative min-h-[78svh] md:min-h-[86vh] overflow-hidden bg-[#1B2B24] grain">
+    <section ref={ref} data-testid={testid} className="relative min-h-[78svh] md:min-h-[86vh] overflow-hidden bg-ink grain">
       {photo && (
         <motion.img
           src={img(photo.url)}
@@ -24,7 +24,7 @@ export default function PageHeader({ eyebrow, title, intro, photo, testid }) {
       <div className="absolute inset-0 bg-gradient-to-t from-[#0f1813]/90 via-[#0f1813]/40 to-[#0f1813]/30" />
       <div className="relative z-10 mx-auto flex min-h-[78svh] md:min-h-[86vh] max-w-7xl flex-col justify-end px-5 md:px-10 pb-14 md:pb-20 pt-32">
         <Eyebrow light className="mb-5">{eyebrow}</Eyebrow>
-        <h1 className="max-w-4xl text-5xl sm:text-6xl lg:text-7xl font-medium leading-[0.98] tracking-tight text-[#F8F5F0]">
+        <h1 className="max-w-4xl text-5xl sm:text-6xl lg:text-7xl font-medium leading-[0.98] tracking-tight text-on-dark">
           <MaskLines lines={splitLines(title, 22)} onLoad delay={0.2} />
         </h1>
         {intro && (

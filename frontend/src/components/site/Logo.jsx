@@ -15,10 +15,10 @@ export function Logo({ light = false }) {
     <span className="flex min-w-0 items-center gap-2.5 sm:gap-3">
       <LogoMark light={light} className="h-8 w-8 shrink-0 sm:h-9 sm:w-9" />
       <span className="min-w-0 leading-none">
-        <span className={`block whitespace-nowrap font-display text-[1.15rem] sm:text-[1.35rem] font-semibold tracking-tight ${light ? "text-[#F8F5F0]" : "text-[#1B2B24]"}`}>
+        <span className={`block whitespace-nowrap font-display text-[1.15rem] sm:text-[1.35rem] font-semibold tracking-tight ${light ? "text-on-dark" : "text-ink"}`}>
           La Cabane du Chêne
         </span>
-        <span className={`block whitespace-nowrap text-[10px] uppercase tracking-[0.22em] sm:tracking-[0.28em] mt-1 ${light ? "text-[#E8DCCB]" : "text-[#6B4E3D]"}`}>
+        <span className={`block whitespace-nowrap text-[10px] uppercase tracking-[0.22em] sm:tracking-[0.28em] mt-1 ${light ? "text-on-dark" : "text-[#6B4E3D]"}`}>
           Valmunster · Moselle
         </span>
       </span>

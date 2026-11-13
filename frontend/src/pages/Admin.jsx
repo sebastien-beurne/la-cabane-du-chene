@@ -20,9 +20,11 @@ import AutoEmailsAdmin from "@/components/admin/AutoEmailsAdmin";
 import BankAdmin from "@/components/admin/BankAdmin";
 import LaunchChecklist from "@/components/admin/LaunchChecklist";
 
+import ThemePicker from '@/components/admin/ThemePicker';
+
 const GROUPS = [
   ["Activité", [["preparation", "Préparation"], ["bord", "Tableau de bord"], ["demandes", "Réservations"], ["calendrier", "Calendrier"], ["messages", "Messages"], ["emails", "E-mails auto"], ["cadeaux", "Cartes cadeaux"]]],
-  ["Contenu du site", [["photos", "Photos"], ["videos", "Vidéos"], ["avis", "Avis"], ["visuel", "Fond d'accueil"], ["contenus", "Textes"], ["livret", "Livret d'accueil"], ["guide", "Guide"]]],
+  ["Contenu du site", [["themes", "Thèmes"], ["photos", "Photos"], ["videos", "Vidéos"], ["avis", "Avis"], ["visuel", "Fond d'accueil"], ["contenus", "Textes"], ["livret", "Livret d'accueil"], ["guide", "Guide"]]],
   ["Paramètres", [["tarifs", "Tarifs & options"], ["promos", "Codes promo"], ["reglages", "Réglages & liens iCal"]]],
 ];
 const TAB_KEYS = GROUPS.flatMap(([, t]) => t.map(([k]) => k));
@@ -147,7 +149,7 @@ export default function Admin() {
         {tab === "emails" && <AutoEmailsAdmin />}
         {tab === "messages" && <MessagesAdmin />}
         {tab === "calendrier" && <CalendarAdmin goTo={setTab} />}
-        {tab === "photos" && <PhotosAdmin />}
+        {tab === "themes" && <ThemePicker />}{tab === "photos" && <PhotosAdmin />}
         {tab === "promos" && <PromoCodes />}
         {EDIT[tab] && <Editor key={tab} blocks={EDIT[tab]} extra={tab === "reglages" ? <><BankAdmin /><Password /></> : null} before={tab === "visuel" ? (d) => <HeroPreview draft={d} /> : null} />}
       </main>

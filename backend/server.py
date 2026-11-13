@@ -170,7 +170,7 @@ async def change_password(body: PasswordIn, user=Depends(current_user)):
 # ---------------- Content ----------------
 async def get_content() -> dict:
     doc = await db.settings.find_one({"key": "content"}, {"_id": 0})
-    return merge(DEFAULT_CONTENT, (doc or {}).get("data", {}))
+    return merge({**DEFAULT_CONTENT, "appearance": {"theme": "signature"}}, (doc or {}).get("data", {}))
 
 
 @api.get("/content")
@@ -180,8 +180,20 @@ async def read_content():
 
 @api.put("/admin/content")
 async def update_content(data: dict, user=Depends(current_user)):
-    clean = {k: v for k, v in data.items() if k in DEFAULT_CONTENT}
-    await db.settings.update_one({"key": "content"}, {"$set": {"data": clean, "updated_at": now_iso()}}, upsert=True)
+    clean = {k: v for k, v in data.items() if k in DEFAULT_CONTENT and k != "appearance"}
+    await db.settings.update_one({"key": "content"}, {"$set": {**{f"data.{k}": v for k, v in clean.items()}, "updated_at": now_iso()}}, upsert=True)
+    return await get_content()
+
+
+THEME_IDS = {'valentine', 'winter', 'signature', 'easter', 'halloween', 'spring', 'summer', 'christmas', 'autumn'}
+class AppearanceIn(BaseModel):
+    theme: str
+
+@api.put('/admin/appearance')
+async def update_appearance(body: AppearanceIn, user=Depends(current_user)):
+    if body.theme not in THEME_IDS:
+        raise HTTPException(422, 'Thème inconnu')
+    await db.settings.update_one({'key':'content'},{'$set':{'data.appearance.theme':body.theme,'updated_at':now_iso()}},upsert=True)
     return await get_content()
 
 

@@ -22,7 +22,7 @@ export default function Footer() {
   ].filter((p) => p.url);
 
   return (
-    <footer data-testid="site-footer" data-no-translate className="relative bg-[#1B2B24] text-[#D9DFDA] pb-28 md:pb-10">
+    <footer data-testid="site-footer" data-no-translate className="relative bg-ink text-[#D9DFDA] pb-28 md:pb-10">
       <div className="mx-auto max-w-7xl px-5 md:px-10 pt-20 grid gap-12 md:grid-cols-12">
         <div className="md:col-span-5 space-y-5">
           <Logo light />
@@ -43,7 +43,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="md:col-span-3">
-          <p className="text-xs uppercase tracking-[0.24em] text-[#E3B48A] mb-5">{t("footer.gite")}</p>
+          <p className="text-xs uppercase tracking-[0.24em] text-gold mb-5">{t("footer.gite")}</p>
           <ul className="space-y-3 text-sm">
             {NAV.map((n) => (
               <li key={n.to}><Link to={n.to} className="hover:text-white" data-testid={`footer-link-${n.id}`}>{t(`nav.${n.id}`)}</Link></li>
@@ -53,7 +53,7 @@ export default function Footer() {
           </ul>
         </div>
         <div className="md:col-span-4 space-y-3 text-sm">
-          <p className="text-xs uppercase tracking-[0.24em] text-[#E3B48A] mb-5">{t("footer.reach")}</p>
+          <p className="text-xs uppercase tracking-[0.24em] text-gold mb-5">{t("footer.reach")}</p>
           <p className="flex items-center gap-3"><MapPin size={16} /> {td(g.city || "Valmunster")}, {td(g.region || "Moselle, Lorraine")}, {td(g.country || "France")}</p>
           {g.email && <a href={`mailto:${g.email}`} data-testid="footer-email" className="flex items-center gap-3 hover:text-white"><Mail size={16} /> {g.email}</a>}
           {g.phone && <a href={`tel:${g.phone.replace(/\s/g, "")}`} data-testid="footer-phone" className="flex items-center gap-3 hover:text-white"><Phone size={16} /> {g.phone}</a>}

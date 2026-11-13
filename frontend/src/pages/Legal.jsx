@@ -3,14 +3,14 @@ import Seo from "@/components/site/Seo";
 
 function Fill({ v, label }) {
   if (v) return <>{v}</>;
-  return <mark className="rounded bg-[#B35432]/10 px-1.5 py-0.5 text-[#944125]">[À compléter : {label}]</mark>;
+  return <mark className="rounded bg-action/10 px-1.5 py-0.5 text-action-strong">[À compléter : {label}]</mark>;
 }
 
 function Sec({ title, children }) {
   return (
     <section className="space-y-3">
-      <h2 className="text-2xl md:text-3xl font-medium text-[#1B2B24]">{title}</h2>
-      <div className="space-y-3 leading-relaxed text-[#33423A]">{children}</div>
+      <h2 className="text-2xl md:text-3xl font-medium text-ink">{title}</h2>
+      <div className="space-y-3 leading-relaxed text-body">{children}</div>
     </section>
   );
 }
@@ -104,9 +104,9 @@ export default function Legal({ slug }) {
   return (
     <>
       <Seo title={`${page.title} — La Cabane du Chêne`} description={`${page.title} du site de La Cabane du Chêne, gîte insolite à Valmunster.`} path={`/${slug}`} />
-      <section data-testid={`legal-${slug}`} className="bg-[#FBF9F5] pt-36 pb-24">
+      <section data-testid={`legal-${slug}`} className="bg-canvas pt-36 pb-24">
         <div className="mx-auto max-w-3xl px-5 md:px-10 space-y-10">
-          <h1 className="text-5xl md:text-6xl font-medium leading-[1.02] text-[#1B2B24]">{page.title}</h1>
+          <h1 className="text-5xl md:text-6xl font-medium leading-[1.02] text-ink">{page.title}</h1>
           <C l={c.legal || {}} g={c.general || {}} p={c.pricing || {}} />
         </div>
       </section>

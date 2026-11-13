@@ -38,13 +38,13 @@ export default function CookieConsent() {
   if (!gaId || choice) return null;
   const decide = (v) => { localStorage.setItem(KEY, v); setChoice(v); };
   return (
-    <div data-testid="cookie-banner" data-no-translate role="dialog" aria-label={t("cookie.label")} className="fixed bottom-24 md:bottom-5 left-3 right-3 md:left-5 md:right-auto md:max-w-md z-50 rounded-md bg-[#F8F5F0] p-5 shadow-2xl border border-[#2D4A3E]/15">
-      <p className="text-sm text-[#33423A] leading-relaxed">
+    <div data-testid="cookie-banner" data-no-translate role="dialog" aria-label={t("cookie.label")} className="fixed bottom-24 md:bottom-5 left-3 right-3 md:left-5 md:right-auto md:max-w-md z-50 rounded-md bg-paper p-5 shadow-2xl border border-brand/15">
+      <p className="text-sm text-body leading-relaxed">
         {t("cookie.text")} <Link to="/confidentialite" className="underline">{t("cookie.more")}</Link>
       </p>
       <div className="mt-4 flex gap-2">
-        <button onClick={() => decide("refuse")} data-testid="cookie-refuse" className="flex-1 rounded-full border border-[#2D4A3E]/30 px-4 py-2.5 text-sm">{t("cookie.refuse")}</button>
-        <button onClick={() => decide("accept")} data-testid="cookie-accept" className="flex-1 rounded-full bg-[#2D4A3E] px-4 py-2.5 text-sm text-[#F8F5F0]">{t("cookie.accept")}</button>
+        <button onClick={() => decide("refuse")} data-testid="cookie-refuse" className="flex-1 rounded-full border border-brand/30 px-4 py-2.5 text-sm">{t("cookie.refuse")}</button>
+        <button onClick={() => decide("accept")} data-testid="cookie-accept" className="flex-1 rounded-full bg-brand px-4 py-2.5 text-sm text-on-dark">{t("cookie.accept")}</button>
       </div>
     </div>
   );

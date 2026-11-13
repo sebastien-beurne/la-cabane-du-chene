@@ -69,7 +69,7 @@ export default function Lightbox({ photos, index, onClose }) {
           aria-label={t("lb.label")}
           className={`fixed inset-0 z-[100] bg-[#0f1813]/95 backdrop-blur-md flex flex-col transition-opacity duration-200 ${open && shown ? "opacity-100" : "opacity-0"} ${open ? "pointer-events-auto" : "pointer-events-none"}`}
         >
-          <div className="flex items-center justify-between px-4 py-3 text-[#F8F5F0]">
+          <div className="flex items-center justify-between px-4 py-3 text-on-dark">
             <span className="text-sm tabular-nums" data-testid="lightbox-counter">{i + 1} / {n}</span>
             <div className="flex gap-2">
               <button data-testid="lightbox-zoom" onClick={() => setZoom((z) => !z)} className="grid h-11 w-11 place-items-center rounded-full border border-white/20" aria-label={zoom ? t("lb.zoomOut") : t("lb.zoomIn")}>

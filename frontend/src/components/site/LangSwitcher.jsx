@@ -31,15 +31,15 @@ export default function LangSwitcher({ light }) {
   return (
     <div ref={ref} className="relative" data-no-translate data-testid="lang-switcher">
       <button type="button" onClick={() => setOpen((o) => !o)} aria-label={t("lang.current", { name: NAMES[lang] })} title={t("lang.choose")} aria-haspopup="listbox" aria-expanded={open} data-testid="lang-current"
-        className={`flex h-11 items-center gap-1 sm:gap-1.5 rounded-full px-1.5 sm:px-2.5 transition-colors ${light ? "hover:bg-white/10 text-white" : "hover:bg-[#2D4A3E]/10 text-[#1B2B24]"}`}>
+        className={`flex h-11 items-center gap-1 sm:gap-1.5 rounded-full px-1.5 sm:px-2.5 transition-colors ${light ? "hover:bg-white/10 text-white" : "hover:bg-brand/10 text-ink"}`}>
         <Flag code={lang} /><ChevronDown size={14} className={open ? "rotate-180 transition-transform" : "transition-transform"} />
       </button>
       {open && (
-        <ul className="absolute right-0 top-12 z-[60] w-44 overflow-hidden rounded-md border border-[#2D4A3E]/15 bg-white py-1 shadow-xl" role="listbox" aria-label={t("lang.choose")}>
+        <ul className="absolute right-0 top-12 z-[60] w-44 overflow-hidden rounded-md border border-brand/15 bg-white py-1 shadow-xl" role="listbox" aria-label={t("lang.choose")}>
           {LANGS.map((l) => (
             <li key={l} role="option" aria-selected={l === lang} lang={l}>
               <button type="button" onClick={() => { setLang(l); setOpen(false); }} data-testid={`lang-option-${l}`}
-                className={`flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-[#1B2B24] hover:bg-[#EFEAE1] ${l === lang ? "font-semibold" : ""}`}>
+                className={`flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-ink hover:bg-sand ${l === lang ? "font-semibold" : ""}`}>
                 <Flag code={l} /> {NAMES[l]}
               </button>
             </li>

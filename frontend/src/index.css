@@ -79,3 +79,32 @@ html.lenis, html.lenis body { height: auto; }
   .gift-print { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 
+
+:root {--theme-ink:27 43 36;--theme-brand:45 74 62;--theme-action:179 84 50;--theme-paper:248 245 240;--theme-canvas:251 249 245;--theme-body:51 66 58;--font-display:Georgia,serif;}
+body {background:rgb(var(--theme-canvas));color:rgb(var(--theme-body));}
+h1,h2,h3,.font-display {font-family:var(--font-display);}
+
+/* Decorative side rails reserve their own space; no illustration sits under text. */
+.seasonal-decor {position:absolute;right:8px;top:8px;width:66px;color:rgb(var(--theme-accent));opacity:.22;pointer-events:none;user-select:none;}
+.seasonal-decor svg {display:block;width:100%;height:auto;}
+.seasonal-atmosphere {position:relative;overflow:hidden;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px 24px;padding:24px 88px 24px 24px;background:rgb(var(--theme-ink));color:rgb(var(--theme-paper));border-bottom:3px solid rgb(var(--theme-accent));text-align:center;}
+.seasonal-atmosphere small {font:600 10px/1.5 "Plus Jakarta Sans",sans-serif;text-transform:uppercase;letter-spacing:.2em;}
+.seasonal-atmosphere p {margin:0;font:26px/1.2 var(--theme-display);}
+.seasonal-atmosphere>.seasonal-decor {right:8px;top:50%;transform:translateY(-50%);width:62px;color:rgb(var(--theme-paper));opacity:.25;}
+.seasonal-page-rail {display:none;}
+.site-main>.seasonal-decor {display:none;}
+@media(min-width:1500px){.seasonal-page-rail{display:block;position:fixed;right:8px;top:32vh;width:68px;z-index:10;pointer-events:none;}.seasonal-page-rail>.seasonal-decor{position:static;}}
+[data-testid="mobile-menu"] {padding-right:90px;}
+[data-testid="mobile-menu"]>.seasonal-menu-decor {display:block;position:absolute;top:24px;right:22px;width:32px;color:rgb(var(--theme-paper));opacity:.27;z-index:0;}
+[data-testid="mobile-menu"]>:not(.seasonal-menu-decor){position:relative;z-index:1;}
+[data-testid^="theme-"][aria-pressed] .relative.h-40 {padding-right:80px;}
+.site-skin {min-height:100vh;background:rgb(var(--theme-canvas));color:rgb(var(--theme-body));}
+.theme-preview-notice {position:fixed;inset:0 0 auto;z-index:100;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 12px;padding:8px 12px;background:rgb(var(--theme-ink));color:rgb(var(--theme-paper));font:12px/1.6 system-ui,sans-serif;}
+.theme-preview-notice select{max-width:150px;border:1px solid currentColor;border-radius:16px;background:rgb(var(--theme-paper));color:rgb(var(--theme-ink));padding:2px 8px;font:inherit;}
+.theme-preview-notice a{text-decoration:underline;}
+.site-skin:has(.theme-preview-notice)>header {top:42px;}
+@media(max-width:640px){.seasonal-atmosphere{padding:20px 80px 20px 16px;}.seasonal-atmosphere p{font-size:23px;}.theme-preview-notice{font-size:10px;}}
+@media print{.seasonal-decor,.seasonal-page-rail,.theme-preview-notice{display:none!important;}}
+
+:root:has(.theme-preview-notice) [data-testid="mobile-menu"] {top:110px;}
+@media(max-width:640px){.theme-preview-notice{flex-wrap:nowrap;gap:6px;padding:8px;font-size:10px;}.theme-preview-notice select{max-width:120px;}}

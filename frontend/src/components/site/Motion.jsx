@@ -60,7 +60,7 @@ export function MaskLines({ lines, onLoad = false, delay = 0, lineClass = "" }) 
 
 export function Eyebrow({ children, light = false, className = "" }) {
   return (
-    <p className={`text-xs uppercase tracking-[0.24em] font-semibold ${light ? "text-[#E3B48A]" : "text-[#B35432]"} ${className}`}>
+    <p className={`text-xs uppercase tracking-[0.24em] font-semibold ${light ? "text-gold" : "text-action"} ${className}`}>
       {children}
     </p>
   );

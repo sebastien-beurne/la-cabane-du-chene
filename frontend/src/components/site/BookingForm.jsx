@@ -150,8 +150,8 @@ export default function BookingForm() {
 
   if (done) {
     return (
-      <div data-testid="booking-success" data-no-translate className="rounded-md bg-[#2D4A3E] p-8 md:p-10 text-[#F8F5F0]">
-        <CheckCircle2 size={36} className="text-[#E3B48A]" />
+      <div data-testid="booking-success" data-no-translate className="rounded-md bg-brand p-8 md:p-10 text-on-dark">
+        <CheckCircle2 size={36} className="text-gold" />
         <h3 className="mt-5 text-3xl md:text-4xl font-medium">{t("bk.sentTitle")}</h3>
         <p className="mt-4 leading-relaxed text-[#D9DFDA]">
           {t("bk.sentDates", { from: fmtDate(done.from, "full"), to: fmtDate(done.to, "full") })}
@@ -165,7 +165,7 @@ export default function BookingForm() {
 
   return (
     <form onSubmit={submit} data-testid="booking-form" data-no-translate className="space-y-7" noValidate>
-      <div className="relative rounded-md border border-[#2D4A3E]/15 bg-white p-3 md:p-5" aria-busy={avail === "loading"} aria-label={t("cal.label")} role="group">
+      <div className="relative rounded-md border border-brand/15 bg-white p-3 md:p-5" aria-busy={avail === "loading"} aria-label={t("cal.label")} role="group">
         <div>
         <Calendar
           mode="range"
@@ -176,7 +176,7 @@ export default function BookingForm() {
           onSelect={onSelect}
           disabled={avail === "ok" ? [{ before: addDays(today, 0) }, ...nights] : true}
           modifiers={{ booked: nights }}
-          modifiersClassNames={{ booked: "line-through text-[#B35432]/60" }}
+          modifiersClassNames={{ booked: "line-through text-action/60" }}
           className={`mx-auto transition-opacity duration-200 ${avail === "ok" ? "" : "opacity-40"}`}
           data-testid="availability-calendar"
         />
@@ -184,22 +184,22 @@ export default function BookingForm() {
         {avail !== "ok" && (
           <div className="absolute inset-0 grid place-items-center p-4" data-testid={`availability-${avail}`}>
             {avail === "loading" ? (
-              <p className="flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#1B2B24] shadow"><Loader2 size={16} className="animate-spin" /> {t("bk.loadingAvail")}</p>
+              <p className="flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-ink shadow"><Loader2 size={16} className="animate-spin" /> {t("bk.loadingAvail")}</p>
             ) : (
-              <div className="max-w-xs rounded-md bg-white p-4 text-center text-sm text-[#33423A] shadow">
+              <div className="max-w-xs rounded-md bg-white p-4 text-center text-sm text-body shadow">
                 <p>{t("bk.availErr")}</p>
-                <button type="button" onClick={loadAvail} className="mt-3 rounded-full bg-[#2D4A3E] px-4 py-2 text-xs font-semibold text-white" data-testid="availability-retry">{t("retry")}</button>
+                <button type="button" onClick={loadAvail} className="mt-3 rounded-full bg-brand px-4 py-2 text-xs font-semibold text-white" data-testid="availability-retry">{t("retry")}</button>
               </div>
             )}
           </div>
         )}
-        <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 px-2 text-xs text-[#526058]">
-          <span className="flex items-center gap-2"><span className="h-3 w-3 rounded-sm bg-[#2D4A3E]" /> {t("bk.legendSel")}</span>
-          <span className="flex items-center gap-2"><span className="text-[#B35432] line-through">12</span> {t("bk.legendOff")}</span>
+        <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 px-2 text-xs text-muted-ink">
+          <span className="flex items-center gap-2"><span className="h-3 w-3 rounded-sm bg-brand" /> {t("bk.legendSel")}</span>
+          <span className="flex items-center gap-2"><span className="text-action line-through">12</span> {t("bk.legendOff")}</span>
         </div>
       </div>
-      <div data-testid="booking-selected-dates" className="flex items-start gap-3 rounded-md bg-[#EFEAE1] p-4 text-sm text-[#33423A]">
-        <Info size={18} className="mt-0.5 shrink-0 text-[#B35432]" />
+      <div data-testid="booking-selected-dates" className="flex items-start gap-3 rounded-md bg-sand p-4 text-sm text-body">
+        <Info size={18} className="mt-0.5 shrink-0 text-action" />
         {n ? (
           <span>{t("bk.selected", { from: fmtDate(range.from), to: fmtDate(range.to), n })}</span>
         ) : (
@@ -208,20 +208,20 @@ export default function BookingForm() {
       </div>
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-2">
-          <span className="block text-sm font-semibold text-[#1B2B24]">{t("bk.guests")}</span>
+          <span className="block text-sm font-semibold text-ink">{t("bk.guests")}</span>
           <Stepper value={Number(form.guests)} min={1} max={maxGuests} onChange={(v) => setForm((f) => ({ ...f, guests: v }))} testid="booking-form-guests" label={t("bk.guests")} />
-          <span className="block text-xs text-[#526058]">{t("bk.upTo", { n: maxGuests })}</span>
+          <span className="block text-xs text-muted-ink">{t("bk.upTo", { n: maxGuests })}</span>
         </div>
         {bfPrice > 0 && (
           <div className="space-y-2">
-            <label className="flex items-center gap-3 text-sm font-semibold text-[#1B2B24]">
+            <label className="flex items-center gap-3 text-sm font-semibold text-ink">
               <Checkbox checked={withBf} onCheckedChange={(v) => { setWithBf(!!v); if (v && !form.breakfasts) setForm((f) => ({ ...f, breakfasts: Number(f.guests) })); }} data-testid="booking-breakfast-toggle" />
               {t("bk.breakfast", { price: eur(bfPrice) })}
             </label>
             {withBf && (
               <div className="flex items-center gap-3">
                 <Stepper value={form.breakfasts} min={1} max={Math.max(1, Number(form.guests) * Math.max(n, 1))} onChange={(v) => setForm((f) => ({ ...f, breakfasts: v }))} testid="booking-breakfasts" label={t("bk.breakfastCount")} />
-                <span className="text-sm text-[#33423A]" data-testid="booking-breakfast-total">= {eur(form.breakfasts * bfPrice)}</span>
+                <span className="text-sm text-body" data-testid="booking-breakfast-total">= {eur(form.breakfasts * bfPrice)}</span>
               </div>
             )}
           </div>
@@ -257,11 +257,11 @@ export default function BookingForm() {
       </div>
       {options.length > 0 && (
         <fieldset className="space-y-3">
-          <legend className="mb-3 text-sm font-semibold text-[#1B2B24]">{t("bk.options")}</legend>
+          <legend className="mb-3 text-sm font-semibold text-ink">{t("bk.options")}</legend>
           {options.map((o, i) => (
-            <label key={o.label} className="flex items-start gap-3 text-sm text-[#33423A]">
+            <label key={o.label} className="flex items-start gap-3 text-sm text-body">
               <Checkbox checked={form.options.includes(o.label)} onCheckedChange={() => toggleOpt(o.label)} data-testid={`booking-option-${i}`} className="mt-0.5" />
-              <span>{td(o.label)}{o.price ? ` — ${td(o.price)}` : ""}{o.note ? <span className="block text-xs text-[#526058]">{td(o.note)}</span> : null}</span>
+              <span>{td(o.label)}{o.price ? ` — ${td(o.price)}` : ""}{o.note ? <span className="block text-xs text-muted-ink">{td(o.note)}</span> : null}</span>
             </label>
           ))}
         </fieldset>
@@ -271,10 +271,10 @@ export default function BookingForm() {
       </Field>
       <Honeypot value={form.website} onChange={set("website")} />
       <div className="space-y-2">
-        <label htmlFor="b-promo" className="block text-sm font-semibold text-[#1B2B24]">{t("bk.promo")}</label>
+        <label htmlFor="b-promo" className="block text-sm font-semibold text-ink">{t("bk.promo")}</label>
         <div className="flex gap-2">
           <input id="b-promo" value={promoInput} onChange={(e) => setPromoInput(e.target.value.toUpperCase())} className={inputCls} data-testid="booking-promo-input" placeholder="CODE" />
-          <button type="button" onClick={() => setForm((f) => ({ ...f, promo_code: promoInput.trim() }))} data-testid="booking-promo-apply" className="shrink-0 rounded-md border border-[#2D4A3E]/30 px-4 text-sm font-semibold text-[#1B2B24] hover:bg-[#EFEAE1]">{t("bk.apply")}</button>
+          <button type="button" onClick={() => setForm((f) => ({ ...f, promo_code: promoInput.trim() }))} data-testid="booking-promo-apply" className="shrink-0 rounded-md border border-brand/30 px-4 text-sm font-semibold text-ink hover:bg-sand">{t("bk.apply")}</button>
         </div>
       </div>
       <QuoteSummary q={quote || (quoteStale ? qs.data : null)} method={form.payment_method} stale={!quote && quoteStale} loading={quoteBusy}
@@ -282,10 +282,10 @@ export default function BookingForm() {
       <PaymentChoice value={form.payment_method} onChange={setPayMethod} quote={quote} />
       <Consent checked={form.consent} onChange={(v) => setForm((f) => ({ ...f, consent: v }))} testid="booking-form-consent" />
       <button type="submit" disabled={sending || quoteBusy} data-testid="booking-form-submit"
-        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#B35432] px-6 py-4 font-semibold text-[#F8F5F0] transition-colors hover:bg-[#944125] disabled:opacity-60">
+        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-action px-6 py-4 font-semibold text-on-dark transition-colors hover:bg-action-strong disabled:opacity-60">
         {(sending || quoteBusy) && <Loader2 size={18} className="animate-spin" />} {quoteBusy ? t("bk.calculating") : t("bk.submit")}
       </button>
-      <p className="text-xs text-center text-[#526058]">{t("bk.noPay")}</p>
+      <p className="text-xs text-center text-muted-ink">{t("bk.noPay")}</p>
     </form>
   );
 }

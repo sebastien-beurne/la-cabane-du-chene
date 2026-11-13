@@ -17,19 +17,19 @@ export default function PaymentChoice({ value, onChange, quote }) {
     if (!transfer && value === "virement") onChange("");
   }, [transfer, value, onChange]);
   const total = quote?.to_pay ?? quote?.total;
-  const card = (on) => `flex w-full items-start gap-3 rounded-md border p-4 text-left transition-colors ${on ? "border-[#2D4A3E] bg-[#2D4A3E]/5 ring-1 ring-[#2D4A3E]" : "border-[#2D4A3E]/20 bg-white hover:bg-[#F4F1EA]"}`;
+  const card = (on) => `flex w-full items-start gap-3 rounded-md border p-4 text-left transition-colors ${on ? "border-brand bg-brand/5 ring-1 ring-brand" : "border-brand/20 bg-white hover:bg-[#F4F1EA]"}`;
   return (
     <fieldset className="space-y-2" data-testid="payment-choice" role="radiogroup">
-      <legend className="mb-2 text-sm font-semibold text-[#1B2B24]">{t("pay.legend")} <span className="text-[#B35432]">*</span></legend>
+      <legend className="mb-2 text-sm font-semibold text-ink">{t("pay.legend")} <span className="text-action">*</span></legend>
       <button type="button" role="radio" aria-checked={value === "carte"} onClick={() => onChange("carte")} className={card(value === "carte")} data-testid="payment-method-carte">
-        <CreditCard size={20} className="mt-0.5 shrink-0 text-[#B35432]" />
-        <span className="text-sm text-[#33423A]"><strong className="block text-[#1B2B24]">{t("pay.card")}</strong>
+        <CreditCard size={20} className="mt-0.5 shrink-0 text-action" />
+        <span className="text-sm text-body"><strong className="block text-ink">{t("pay.card")}</strong>
           {quote ? t("pay.cardQuote", { deposit: eur(quote.deposit_left ?? quote.deposit), balance: eur(quote.balance) }) : t("pay.cardNoQuote")}</span>
       </button>
       {transfer && (
         <button type="button" role="radio" aria-checked={value === "virement"} onClick={() => onChange("virement")} className={card(value === "virement")} data-testid="payment-method-virement">
-          <Landmark size={20} className="mt-0.5 shrink-0 text-[#B35432]" />
-          <span className="text-sm text-[#33423A]"><strong className="block text-[#1B2B24]">{t("pay.transfer")}</strong>
+          <Landmark size={20} className="mt-0.5 shrink-0 text-action" />
+          <span className="text-sm text-body"><strong className="block text-ink">{t("pay.transfer")}</strong>
             {t("pay.transferText", { total: total ? eur(total) : "" })}</span>
         </button>
       )}

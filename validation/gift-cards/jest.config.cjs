@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = {
   rootDir: path.resolve(__dirname, "../../frontend"),
   testEnvironment: require.resolve("jest-environment-jsdom"),
-  testMatch: ["**/features/gift-cards/*.test.jsx"],
+  testMatch: ["**/components/site/Seasonal.test.jsx", "**/features/gift-cards/*.test.jsx"],
   moduleDirectories: [path.join(__dirname, "node_modules"), "node_modules"],
   transform: {
     "^.+\\.[jt]sx?$": [require.resolve("babel-jest"), {

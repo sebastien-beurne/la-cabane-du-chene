@@ -1,3 +1,4 @@
+import ThemeFrame from '@/components/site/ThemeFrame';
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Toaster } from "@/components/ui/sonner";
@@ -27,7 +28,7 @@ function Shell() {
   const { pathname } = useLocation();
   const admin = pathname.startsWith("/admin");
   return (
-    <>
+    <ThemeFrame>
       <SmoothScroll />
       {!admin && <Navbar />}
       <main>
@@ -56,7 +57,7 @@ function Shell() {
       {!admin && <MobileBookBar />}
       {!admin && <CookieConsent />}
       <div data-no-translate><Toaster position="top-center" richColors /></div>
-    </>
+    </ThemeFrame>
   );
 }
 

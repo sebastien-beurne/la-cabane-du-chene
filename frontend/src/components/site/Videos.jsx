@@ -14,21 +14,21 @@ function Video({ v, i }) {
   const id = ytId(v.url);
   return (
     <Reveal delay={i * 0.1} className="space-y-4" data-testid={`video-${i}`}>
-      <div className="relative aspect-video overflow-hidden rounded-md bg-[#1B2B24]">
+      <div className="relative aspect-video overflow-hidden rounded-md bg-ink">
         {id ? (
           play ? (
             <iframe title={v.title} src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=0&playsinline=1&rel=0`} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen className="h-full w-full border-0" />
           ) : (
             <button type="button" onClick={() => setPlay(true)} data-testid={`video-play-${i}`} className="group absolute inset-0" aria-label={`Lire : ${v.title}`}>
               <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" className="h-full w-full object-cover opacity-85 transition-transform duration-700 group-hover:scale-105" />
-              <span className="absolute inset-0 grid place-items-center"><span className="grid h-16 w-16 place-items-center rounded-full bg-[#F8F5F0]/95 text-[#1B2B24] shadow-xl"><Play size={24} fill="currentColor" /></span></span>
+              <span className="absolute inset-0 grid place-items-center"><span className="grid h-16 w-16 place-items-center rounded-full bg-paper/95 text-ink shadow-xl"><Play size={24} fill="currentColor" /></span></span>
             </button>
           )
         ) : (
           <video src={img(v.url)} controls playsInline preload="metadata" className="h-full w-full object-cover" />
         )}
       </div>
-      <h3 className="text-2xl font-medium text-[#1B2B24]">{v.title}</h3>
+      <h3 className="text-2xl font-medium text-ink">{v.title}</h3>
     </Reveal>
   );
 }
@@ -38,9 +38,9 @@ export default function Videos() {
   const list = (Array.isArray(c.videos) ? c.videos : []).filter((v) => v?.url && v?.active !== false);
   if (!list.length) return null;
   return (
-    <section data-testid="videos-section" className="bg-[#FBF9F5] py-24 md:py-32">
+    <section data-testid="videos-section" className="bg-canvas py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 md:px-10">
-        <Reveal className="mb-12"><Eyebrow>En vidéo</Eyebrow><h2 className="mt-4 text-4xl md:text-5xl font-medium text-[#1B2B24]">{c.home?.videos_title || "La cabane en vidéo"}</h2></Reveal>
+        <Reveal className="mb-12"><Eyebrow>En vidéo</Eyebrow><h2 className="mt-4 text-4xl md:text-5xl font-medium text-ink">{c.home?.videos_title || "La cabane en vidéo"}</h2></Reveal>
         <div className={`grid gap-8 ${list.length > 1 ? "md:grid-cols-2" : "max-w-4xl"}`}>
           {list.map((v, i) => <Video key={i} v={v} i={i} />)}
         </div>

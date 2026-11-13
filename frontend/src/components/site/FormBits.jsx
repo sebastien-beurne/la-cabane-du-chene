@@ -3,12 +3,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useT } from "@/lib/i18n";
 
 export const inputCls =
-  "w-full rounded-md border border-[#2D4A3E]/25 bg-white px-4 py-3 text-base text-[#1B2B24] placeholder:text-[#7a857f] outline-none transition-[border-color,box-shadow] focus:border-[#2D4A3E] focus:ring-2 focus:ring-[#2D4A3E]/15";
+  "w-full rounded-md border border-brand/25 bg-white px-4 py-3 text-base text-ink placeholder:text-[#7a857f] outline-none transition-[border-color,box-shadow] focus:border-brand focus:ring-2 focus:ring-brand/15";
 
 export function Field({ label, htmlFor, children }) {
   return (
     <div className="space-y-2">
-      <label htmlFor={htmlFor} className="block text-sm font-semibold text-[#1B2B24]">{label}</label>
+      <label htmlFor={htmlFor} className="block text-sm font-semibold text-ink">{label}</label>
       {children}
     </div>
   );
@@ -26,7 +26,7 @@ export function Honeypot({ value, onChange }) {
 export function Consent({ checked, onChange, testid }) {
   const { t } = useT();
   return (
-    <label className="flex items-start gap-3 text-sm leading-relaxed text-[#33423A]" data-no-translate>
+    <label className="flex items-start gap-3 text-sm leading-relaxed text-body" data-no-translate>
       <Checkbox checked={checked} onCheckedChange={(v) => onChange(!!v)} data-testid={testid} className="mt-0.5" />
       <span>
         {t("form.consent")}{" "}
