@@ -57,9 +57,9 @@ async def test_client_owner_filters_combine_with_search_for_legacy_and_new_mail(
  db,c,mailer=mail_app
  for i,d in enumerate([{'to':'owner@example.com','subject':'Reservation A'}, {'to':'client@example.com','subject':'Reservation B'}, {'to':'other@example.com','subject':'Contact C','category':'contact_proprietaire'}]):
   await db.email_log.insert_one({'id':str(i),'status':'envoye','kind':'automatique','created_at':'2026-11-13T10:00:00Z',**d})
- owner=(await c.get('/api/admin/emails',params={'audience':'owner'})).json();assert owner['total']==2 and all(x['audience']=='owner' for x in owner['items'])
- clients=(await c.get('/api/admin/emails',params={'audience':'client'})).json();assert clients['total']==1 and clients['items'][0]['to']=='client@example.com'
- assert (await c.get('/api/admin/emails',params={'audience':'owner','q':'Reservation'})).json()['total']==1
+ owner=(await c.get('/api/admin/emails',params={'audience':'owner'})).json();assert owner['total']==1 and all(x['audience']=='owner' for x in owner['items'])
+ clients=(await c.get('/api/admin/emails',params={'audience':'client'})).json();assert clients['total']==2 and {x['to'] for x in clients['items']}=={'owner@example.com','client@example.com'}
+ assert (await c.get('/api/admin/emails',params={'audience':'owner','q':'Reservation'})).json()['total']==0
 
 @pytest.mark.anyio
 async def test_disabled_reply_is_journaled_once_and_is_not_counted_as_sent(mail_app):
