@@ -256,6 +256,8 @@ def _quote_rows(q: dict) -> list:
     rows += [(o["label"], eur(o["amount"])) for o in q.get("options") or []]
     if q.get("promo"):
         rows.append((f"Code promo {q.get('promo_code', '')}", "-" + eur(q["promo"])))
+    if q.get("tourist_tax"):
+        rows.append(("Taxe de séjour", eur(q["tourist_tax"])))
     if q.get("gift"):
         rows.append((f"Carte cadeau {q.get('gift_code', '')}", "-" + eur(q["gift"])))
     return rows

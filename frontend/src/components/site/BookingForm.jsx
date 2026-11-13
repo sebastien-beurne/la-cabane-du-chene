@@ -39,6 +39,9 @@ export default function BookingForm({ enabled = true }) {
   const [avail, setAvail] = useState("loading");
   const [range, setRange] = useState();
   const [form, setForm] = useState({ guests: 2, first_name: "", last_name: "", email: "", phone: "", street: "", postal_code: "", city: "", country: "", message: "", options: [], consent: false, website: "", breakfasts: 0, promo_code: "", payment_method: "" });
+  const [taxableGuests,setTaxableGuests]=useState(null);
+  const taxEnabled=pricing.tourist_tax_enabled===true;
+  const taxCount=taxableGuests===null?Number(form.guests):Math.min(taxableGuests,Number(form.guests));
   const [withBf, setWithBf] = useState(false);
   const [promoInput, setPromoInput] = useState("");
   const [qs, setQs] = useState({ key: "", data: null, loading: false, error: "" });
@@ -95,7 +98,7 @@ export default function BookingForm({ enabled = true }) {
   const n = range?.from && range?.to ? differenceInCalendarDays(range.to, range.from) : 0;
   const breakfasts = withBf ? form.breakfasts : 0;
 
-  const quoteBody = n ? { check_in: iso(range.from), check_out: iso(range.to), guests: Number(form.guests), breakfasts, options: form.options, promo_code: form.promo_code } : null;
+  const quoteBody = n ? { check_in: iso(range.from), check_out: iso(range.to), guests: Number(form.guests), breakfasts, options: form.options, promo_code: form.promo_code, tourist_tax_guests: taxEnabled?taxCount:null } : null;
   const selKey = quoteBody ? JSON.stringify(quoteBody) : "";
   const quote = qs.data && qs.key === selKey ? qs.data : null;
   const quoteStale = !!qs.data && qs.key !== selKey;
@@ -138,7 +141,7 @@ export default function BookingForm({ enabled = true }) {
     setSending(true);
     try {
       await http.post("/booking-requests", {
-        ...JSON.parse(selKey), ...form, breakfasts, guests: Number(form.guests), check_in: iso(range.from), check_out: iso(range.to), elapsed_ms: Date.now() - started.current,
+        ...JSON.parse(selKey), ...form, tourist_tax_guests:taxEnabled?taxCount:null, breakfasts, guests: Number(form.guests), check_in: iso(range.from), check_out: iso(range.to), elapsed_ms: Date.now() - started.current,
       });
       setDone({ from: range.from, to: range.to });
     } catch (err) {
@@ -208,6 +211,10 @@ export default function BookingForm({ enabled = true }) {
           <span>{t("bk.hint")}</span>
         )}
       </div>
+      {taxEnabled && <div className="rounded-md border border-brand/15 bg-sand p-4 space-y-2" data-testid="tourist-tax-guests">
+        <Field label={td("Personnes assujetties à la taxe de séjour")} htmlFor="tourist-tax-count"><select id="tourist-tax-count" value={taxCount} onChange={e=>setTaxableGuests(Number(e.target.value))} className={inputCls}>{Array.from({length:Number(form.guests)+1},(_,i)=><option key={i} value={i}>{i}</option>)}</select></Field>
+        <p className="text-xs text-muted-ink">{td("Ne comptez pas les moins de 18 ans ni les personnes exonérées. Le montant est détaillé dans le récapitulatif.")}</p>
+      </div>}
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-2">
           <span className="block text-sm font-semibold text-ink">{t("bk.guests")}</span>

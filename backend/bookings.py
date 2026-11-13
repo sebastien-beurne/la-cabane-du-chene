@@ -1,3 +1,4 @@
+from tourist_tax import tourist_tax
 from booking_refusal import notify_refusal
 import re
 import uuid
@@ -50,7 +51,7 @@ async def find_promo(db, code: str):
 
 
 def compute_quote(p: dict, nights: int, guests: int, breakfasts: int = 0, options: List[str] = (), promo: Optional[dict] = None,
-                  gift: Optional[dict] = None) -> dict:
+                  gift: Optional[dict] = None, taxable_guests: Optional[int] = None) -> dict:
     rates = rate_table(p)
     if not rates:
         raise HTTPException(status_code=400, detail="Tarifs non configurés")
@@ -76,7 +77,8 @@ def compute_quote(p: dict, nights: int, guests: int, breakfasts: int = 0, option
     if promo:
         promo_amount = subtotal * num(promo["value"]) / 100 if promo["type"] == "percent" else num(promo["value"])
         promo_amount = round(min(promo_amount, subtotal), 2)
-    total = round(subtotal - promo_amount, 2)
+    tax = tourist_tax(p, nights, guests, taxable_guests)
+    total = round(subtotal - promo_amount + tax["tourist_tax"], 2)
     pct = num(p.get("deposit_percent"), 30)
     deposit = round(total * pct / 100, 2)
     gift_amount = round(min(float(gift.get("balance") or 0), total), 2) if gift else 0.0
@@ -85,7 +87,7 @@ def compute_quote(p: dict, nights: int, guests: int, breakfasts: int = 0, option
         "base": round(base, 2), "extra_guests": extra_n, "supplement": round(supplement, 2),
         "breakfasts": max(0, int(breakfasts)), "breakfast_unit": bf_price, "breakfast": round(breakfast, 2),
         "options": opt_lines, "promo_code": (promo or {}).get("code", ""), "promo": promo_amount,
-        "total": total, "deposit_percent": pct, "deposit": deposit, "balance": round(total - deposit, 2),
+        **tax, "total": total, "deposit_percent": pct, "deposit": deposit, "balance": round(total - deposit, 2),
         "gift_code": (gift or {}).get("code", ""), "gift": gift_amount, "to_pay": round(total - gift_amount, 2),
         "deposit_left": round(max(0.0, deposit - gift_amount), 2),
     }
@@ -124,6 +126,7 @@ def log(action: str, detail: str = "") -> dict:
 
 
 class QuoteIn(BaseModel):
+    tourist_tax_guests: Optional[int] = Field(default=None, ge=0, le=12)
     check_in: str
     check_out: str
     guests: int = 2
@@ -133,6 +136,7 @@ class QuoteIn(BaseModel):
 
 
 class BookingEdit(BaseModel):
+    tourist_tax_guests: Optional[int] = Field(default=None, ge=0, le=12)
     status: Optional[str] = None
     name: Optional[str] = None
     email: Optional[EmailStr] = None
@@ -191,7 +195,7 @@ def build_router(db, current_user, get_content, owner_email) -> APIRouter:
     async def quote(body: QuoteIn):
         import giftcards
         promo, gift = await giftcards.resolve_code(db, body.promo_code)
-        return compute_quote(await pricing(), nights_between(body.check_in, body.check_out), body.guests, body.breakfasts, body.options, promo, gift)
+        return compute_quote(await pricing(), nights_between(body.check_in, body.check_out), body.guests, body.breakfasts, body.options, promo, gift, taxable_guests=body.tourist_tax_guests)
 
     @r.get("/admin/booking-requests")
     async def list_bookings(user=Depends(current_user)):
@@ -222,7 +226,7 @@ def build_router(db, current_user, get_content, owner_email) -> APIRouter:
         if nights_between(new["check_in"], new["check_out"]) < 1:
             raise HTTPException(status_code=400, detail="Le départ doit suivre l'arrivée")
         upd = dict(changes)
-        if (b.get("source") or "direct") == "direct" and any(k in changes for k in ("check_in", "check_out", "guests", "breakfasts", "options")):
+        if (b.get("source") or "direct") == "direct" and any(k in changes for k in ("check_in", "check_out", "guests", "breakfasts", "options", "tourist_tax_guests")):
             promo = None
             code = (b.get("quote") or {}).get("promo_code")
             if code:
@@ -233,7 +237,7 @@ def build_router(db, current_user, get_content, owner_email) -> APIRouter:
                 if body.total_override is None:
                     raise HTTPException(status_code=400, detail="Séjour plus long que la grille tarifaire : indiquez le montant total.")
             else:
-                q = compute_quote(p, n, new["guests"], new.get("breakfasts", 0), new.get("options") or [], promo)
+                q = compute_quote(p, n, new["guests"], new.get("breakfasts", 0), new.get("options") or [], promo, taxable_guests=new.get("tourist_tax_guests", (b.get("quote") or {}).get("tourist_tax_guests")))
                 upd.update({"quote": q, "total": q["total"], "deposit_due": q["deposit"]})
         if body.total_override is not None:
             pct = num((await pricing()).get("deposit_percent"), 30)

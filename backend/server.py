@@ -660,6 +660,7 @@ async def guard_spam(request: Request, honeypot: str, elapsed_ms: int, kind: str
 
 
 class BookingIn(BaseModel):
+    tourist_tax_guests: Optional[int] = Field(default=None, ge=0, le=12)
     check_in: str
     check_out: str
     guests: int = Field(ge=1, le=12)
@@ -698,7 +699,7 @@ async def create_booking(body: BookingIn, request: Request):
         if body.check_in < r["end"] and r["start"] < body.check_out:
             raise HTTPException(status_code=409, detail="Ces dates ne sont pas disponibles. Merci d'en choisir d'autres.")
     promo, gift = await giftcards.resolve_code(db, body.promo_code)
-    q = bookings.compute_quote((await get_content()).get("pricing") or {}, (co - ci).days, body.guests, body.breakfasts, body.options, promo, gift)
+    q = bookings.compute_quote((await get_content()).get("pricing") or {}, (co - ci).days, body.guests, body.breakfasts, body.options, promo, gift, taxable_guests=body.tourist_tax_guests)
     if not await guard_spam(request, body.website, body.elapsed_ms, "booking"):
         return {"ok": True}
     b = body.model_dump(exclude={"website", "elapsed_ms", "consent", "promo_code"})

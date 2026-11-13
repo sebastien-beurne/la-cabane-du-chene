@@ -7,6 +7,10 @@ const CATS = Object.entries(CAT_LABELS).map(([value, label]) => ({ value, label 
 const GUIDE = ["Visites culturelles", "Villages de charme", "Nature", "Gastronomie", "Sorties"];
 
 export const PRICING = [
+  {title:"Taxe de séjour",base:"pricing",help:"Montant fixe par personne assujettie et par nuit, taxes additionnelles incluses. Vérifiez le barème de votre collectivité avant activation. Les moins de 18 ans et autres personnes exonérées ne sont pas comptés. Si votre barème est proportionnel (hébergement non classé), ne pas activer ce calcul fixe.",fields:[
+    {key:"tourist_tax_enabled",label:"Ajouter la taxe de séjour au prix final",type:"bool"},
+    T("tourist_tax_per_night","Tarif total par personne et par nuit (€)",{placeholder:"ex. 0,88"}),
+  ]},
   { title: "Cartes cadeaux", base: "gifts", help: "Les ventes sont bloquées jusqu’à validation des conditions et connexion du compte Stripe et de l’envoi d’e-mails.", fields: [
     T("amounts", "Montants proposés (séparés par des virgules)"), T("min_amount", "Montant minimum (€)"), T("max_amount", "Montant maximum (€)"),
     T("validity_days", "Validité en jours (à faire confirmer)"), A("terms", "Conditions spécifiques des cartes cadeaux"),

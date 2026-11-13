@@ -28,9 +28,9 @@ function Row({ k, v, strong }) {
 }
 
 function EditForm({ b, onSaved }) {
-  const [f, setF] = useState({ name: b.name, email: b.email || "", phone: b.phone || "", check_in: b.check_in, check_out: b.check_out, guests: b.guests, breakfasts: b.breakfasts || 0, total_override: "", note: "" });
+  const [f, setF] = useState({ name: b.name, email: b.email || "", phone: b.phone || "", check_in: b.check_in, check_out: b.check_out, guests: b.guests, tourist_tax_guests:b.tourist_tax_guests ?? b.quote?.tourist_tax_guests ?? b.guests, breakfasts: b.breakfasts || 0, total_override: "", note: "" });
   const save = async () => {
-    const body = { ...f, guests: Number(f.guests), breakfasts: Number(f.breakfasts), total_override: f.total_override === "" ? null : Number(String(f.total_override).replace(",", ".")) };
+    const body = { ...f, guests: Number(f.guests), tourist_tax_guests:Number(f.tourist_tax_guests), breakfasts: Number(f.breakfasts), total_override: f.total_override === "" ? null : Number(String(f.total_override).replace(",", ".")) };
     if (!body.email) delete body.email;
     try { await http.patch(`/admin/booking-requests/${b.id}`, body); toast.success("Réservation modifiée, montants recalculés"); onSaved(); } catch (e) { toast.error(errMsg(e)); }
   };
@@ -43,6 +43,7 @@ function EditForm({ b, onSaved }) {
       <L label="Arrivée"><input type="date" value={f.check_in} onChange={s("check_in")} className={fld} /></L>
       <L label="Départ"><input type="date" value={f.check_out} onChange={s("check_out")} className={fld} /></L>
       <L label="Personnes"><input type="number" min={1} value={f.guests} onChange={s("guests")} className={fld} /></L>
+      <L label="Personnes assujetties (taxe de séjour)"><input type="number" min={0} max={f.guests} value={f.tourist_tax_guests} onChange={s("tourist_tax_guests")} className={fld} /></L>
       <L label="Petits-déjeuners"><input type="number" min={0} value={f.breakfasts} onChange={s("breakfasts")} className={fld} /></L>
       <div className="col-span-2"><L label="Forcer le montant total (facultatif, €)"><input inputMode="decimal" value={f.total_override} onChange={s("total_override")} className={fld} placeholder={String(b.total || "")} /></L></div>
       <div className="col-span-2"><L label="Motif / note (historique)"><input value={f.note} onChange={s("note")} className={fld} /></L></div>
@@ -120,6 +121,7 @@ function BookingCard({ b, reload }) {
         {(q?.options || []).map((o) => <Row key={o.label} k={o.label} v={eur(o.amount)} />)}
         {q?.promo > 0 && <Row k={`Code ${q.promo_code}`} v={`- ${eur(q.promo)}`} />}
         {q?.gift > 0 && <Row k={`Carte cadeau ${q.gift_code} (comptée en paiement)`} v={eur(q.gift)} />}
+        {q?.tourist_tax > 0 && <Row k={`Taxe de séjour (${q.tourist_tax_guests} pers. × ${q.nights} n.)`} v={eur(q.tourist_tax)} />}
         <Row k="Montant total" v={eur(b.total)} strong />
         {!external && (b.payment_method === "virement"
           ? <Row k="Règlement par virement (100 %)" v={eur(b.balance_due)} />

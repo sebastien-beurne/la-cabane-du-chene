@@ -65,6 +65,7 @@ export default function QuoteSummary({ q, method, stale, loading, error, onRetry
       {(q.options || []).map((o) => <Line key={o.label} label={td(o.label)} value={o.amount ? eur(o.amount) : t("q.onRequest")} />)}
       {q.promo > 0 && <Line label={t("q.promo", { code: q.promo_code })} value={`- ${eur(q.promo)}`} muted testid="quote-promo" />}
       <div className="my-2 border-t border-brand/15" />
+      {q.tourist_tax > 0 && <Line label={`${td("Taxe de séjour")} (${q.tourist_tax_guests} × ${q.nights} × ${eur(q.tourist_tax_unit)})`} value={eur(q.tourist_tax)} testid="quote-tourist-tax" />}
       <Line label={t("q.total")} value={eur(q.total)} strong testid="quote-total" />
       {q.gift > 0 && (
         <>
