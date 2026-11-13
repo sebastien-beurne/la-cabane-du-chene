@@ -124,7 +124,7 @@ async def test_contact_is_saved_without_sending_external_email(app_client,monkey
     assert result.status_code==200
     saved=await server.db.messages.find_one({'email':'test@example.com'})
     assert saved and saved['lang']=='nl'
-    assert await server.db.email_log.count_documents({'status':'echec'})==2
+    assert await server.db.email_log.count_documents({'status':'non_envoye'})==2
 
 
 @pytest.mark.anyio

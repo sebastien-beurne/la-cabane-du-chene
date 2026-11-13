@@ -1,5 +1,5 @@
 import {useSite} from '@/lib/site';
-import SeasonalDecor from './SeasonalDecor';
+import SeasonalDecor, {SeasonalBadge} from './SeasonalDecor';
 import {themeById} from '@/lib/themes';
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
@@ -22,14 +22,14 @@ export const NAV = [
   { to: "/contact", id: "contact" },
 ];
 
-export default function Navbar() {const seasonalSite=useSite();const seasonalQuery=new URLSearchParams(useLocation().search).get('theme-preview');const seasonalTheme=seasonalQuery&&themeById(seasonalQuery).id===seasonalQuery?seasonalQuery:seasonalSite.previewTheme||seasonalSite.content?.appearance?.theme;
+export default function Navbar() {const seasonalSite=useSite();const seasonalQuery=new URLSearchParams(useLocation().search).get('theme-preview');const seasonalTheme=seasonalQuery&&themeById(seasonalQuery).id===seasonalQuery?seasonalQuery:seasonalSite.previewTheme||seasonalSite.content?.appearance?.theme;const seasonalActive=['spring','summer','autumn','winter','halloween','christmas','easter','valentine'].includes(themeById(seasonalTheme).id);
   const { t } = useT();
   const { pathname } = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const solid = ["/mentions-legales", "/confidentialite", "/conditions", "/avis-clients", "/livret-accueil"].includes(pathname)
     || pathname.startsWith("/paiement") || pathname.startsWith("/carte-cadeau");
-  const overHero = !scrolled && !open && !solid;
+  const overHero = !scrolled && !open && !solid && !seasonalActive;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -44,7 +44,7 @@ export default function Navbar() {const seasonalSite=useSite();const seasonalQue
 
   return (
     <header
-      data-testid="site-header"
+      data-testid="site-header" data-seasonal-header={seasonalActive}
       data-no-translate
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,padding] duration-500 ${
         overHero ? "bg-transparent py-5" : "bg-paper/85 backdrop-blur-xl shadow-[0_1px_0_rgba(45,74,62,0.12)] py-3"
@@ -52,7 +52,7 @@ export default function Navbar() {const seasonalSite=useSite();const seasonalQue
     >
       <div className="mx-auto flex max-w-7xl flex-nowrap md:flex-wrap items-center justify-between gap-x-2 gap-y-3 px-4 sm:px-5 md:px-10">
         <Link to="/" data-testid="nav-brand-logo" aria-label={t("nav.homeAria")} className="min-w-0 shrink">
-          <Logo light={overHero} />
+          <span className="seasonal-brand"><Logo light={overHero}/>{!open&&<SeasonalBadge theme={seasonalTheme}/>}</span>
         </Link>
         <nav data-testid="desktop-nav" aria-label={t("nav.main")}
           className={`hidden md:flex order-last w-full flex-wrap items-center justify-center gap-x-6 gap-y-2 border-t pt-3 2xl:order-none 2xl:w-auto 2xl:border-0 2xl:pt-0 2xl:gap-7 ${overHero ? "border-white/20" : "border-brand/10"}`}>

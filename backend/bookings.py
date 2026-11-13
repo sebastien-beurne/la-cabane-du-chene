@@ -1,3 +1,4 @@
+from booking_refusal import notify_refusal
 import re
 import uuid
 import asyncio
@@ -247,6 +248,8 @@ def build_router(db, current_user, get_content, owner_email) -> APIRouter:
                 fresh = await db.bookings.find_one({"id": bid}, {"_id": 0}, **({"session": session} if session else {}))
                 if not fresh:
                     raise HTTPException(404, "Réservation introuvable")
+                if changes.get("status") == "refusee" and fresh.get("status") != "refusee":
+                    updated["refusal_generation"] = int(fresh.get("refusal_generation") or 0) + 1
                 if not fresh.get("gift_recredited"):
                     push = await giftcards.recredit(db, fresh, session=session)
                     if push:
@@ -263,12 +266,22 @@ def build_router(db, current_user, get_content, owner_email) -> APIRouter:
         else:
             await save_changes()
         nb = await get_b(bid)
+        if changes.get("status") == "refusee" and b.get("status") != "refusee":
+            await notify_refusal(db, nb, await get_content())
         if changes.get("status") == "confirmee" and nb.get("payment_method") == "virement" and not nb.get("transfer_sent"):
             bank = ((await db.settings.find_one({"key": "bank"})) or {}).get("data") or {}
             s, h = emailer.transfer_request_email(enrich(dict(nb)), bank)
             ok = await emailer.send_email(to=nb["email"], subject=s, html=h, lang=nb.get("lang") or "fr", category="instructions_virement",
                                           ref=emailer.bref(nb), dedupe_key=f"virement:{bid}")
             await db.bookings.update_one({"id": bid}, {"$set": {"transfer_sent": now()}, "$push": {"history": log("Instructions de virement envoyées", "e-mail envoyé" if ok else "échec de l'envoi")}})
+        return enrich(await get_b(bid))
+
+    @r.post('/admin/booking-requests/{bid}/refusal-email')
+    async def retry_refusal(bid: str, user=Depends(current_user)):
+        b=await get_b(bid)
+        if b.get('status')!='refusee':
+            raise HTTPException(409,'Seule une réservation refusée peut recevoir cette notification')
+        await notify_refusal(db,b,await get_content())
         return enrich(await get_b(bid))
 
     @r.delete("/admin/booking-requests/{bid}")

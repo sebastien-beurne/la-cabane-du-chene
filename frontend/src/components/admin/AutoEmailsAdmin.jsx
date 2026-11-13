@@ -1,3 +1,4 @@
+import {StayTemplate} from "./StayMessages";
 import { useEffect, useState } from "react";
 import { format, parseISO } from "date-fns";
 import { fr } from "date-fns/locale";
@@ -70,6 +71,8 @@ export default function AutoEmailsAdmin() {
   };
   return (
     <div className="space-y-5 pb-24" data-testid="auto-emails-admin">
+      <StayTemplate kind="arrival"/>
+      <StayTemplate kind="welcome"/>
       <p className="text-sm text-[#526058]">Envoyés chaque matin vers 9 h aux réservations <strong>confirmées</strong> qui ont une adresse e-mail (site et plateformes si vous l'avez saisie). Chaque voyageur ne reçoit chaque e-mail qu'une fois ; l'envoi est noté dans l'historique de la réservation.</p>
       <TemplateCard kind="reminder" t={cfg.reminder} hasBooklet={cfg.has_booklet} onChange={(v) => setCfg({ ...cfg, reminder: v })} />
       <TemplateCard kind="after_stay" t={cfg.after_stay} onChange={(v) => setCfg({ ...cfg, after_stay: v })} />

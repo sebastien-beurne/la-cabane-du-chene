@@ -1,6 +1,6 @@
 import {act} from 'react';
 import {createRoot} from 'react-dom/client';
-import SeasonalDecor from './SeasonalDecor';
+import SeasonalDecor,{SeasonalBadge} from './SeasonalDecor';
 import {THEMES} from '@/lib/themes';
 import {usePublicationRefresh} from '@/lib/publication';
 import {SiteProvider,useSite} from '@/lib/site';
@@ -42,4 +42,10 @@ test('temporary public API failure retains the last successful content',async()=
  await act(async()=>root.render(<SiteProvider><Probe/></SiteProvider>));expect(site.content.appearance.theme).toBe('autumn');
  http.get.mockRejectedValue(new Error('offline'));await act(async()=>window.dispatchEvent(new Event('focus')));
  expect(site.content.appearance.theme).toBe('autumn');
+});
+
+test.each(seasons)('%s has a single visible header motif with an accessible seasonal name',async key=>{
+ await act(async()=>root.render(<SeasonalBadge theme={key}/>));
+ expect(container.querySelector('[data-testid="seasonal-header-badge"]').getAttribute('aria-label')).not.toContain('undefined');
+ expect(container.querySelectorAll('svg > g')).toHaveLength(1);
 });

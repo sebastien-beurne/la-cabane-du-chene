@@ -28,6 +28,8 @@ import emailer
 import messages
 import payments
 import bookings
+import clients
+import stay_messages
 import giftcards
 import dashboard
 import autoemails
@@ -59,6 +61,13 @@ async def payment_configuration(request: Request, call_next):
         return Response(content='{"detail":"Configurer Stripe avant d’activer les paiements"}', status_code=503, media_type='application/json')
     return await call_next(request)
 
+
+@app.middleware("http")
+async def fresh_content(request: Request, call_next):
+    response=await call_next(request)
+    if request.url.path in {'/api/content','/api/admin/content'}:
+        response.headers['Cache-Control']='no-store'
+    return response
 
 @app.middleware("http")
 async def server_timing(request: Request, call_next):
@@ -775,6 +784,8 @@ api.include_router(translate.build_router(db))
 api.include_router(dashboard.build_router(db, current_user))
 api.include_router(autoemails.build_router(db, current_user, get_content, OWNER_EMAIL, os.environ["SITE_URL"]))
 api.include_router(messages.build_router(db, current_user))
+api.include_router(clients.build_router(db, current_user))
+api.include_router(stay_messages.build_router(db, current_user))
 emailer.db = db
 app.include_router(api)
 app.add_middleware(CORSMiddleware, allow_credentials=True, allow_origins=os.environ["CORS_ORIGINS"].split(","),

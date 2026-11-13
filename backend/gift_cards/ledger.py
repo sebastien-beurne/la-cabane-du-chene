@@ -13,6 +13,7 @@ def now():
 
 
 def state(g):
+    if g.get("deleted_at"): return "supprimee"
     if g.get("status") == "active" and g.get("expires") and g["expires"] < date.today().isoformat():
         return "expiree"
     return g.get("status", "en_attente")
@@ -55,7 +56,7 @@ async def consume(db, gift, amount, booking_id, *, session):
     balance = (cents(current["balance"]) - units) / 100
     # Read and update in the same transaction; calculate in cents, including legacy floats.
     res = await db.gift_cards.update_one(
-        {"id": gift["id"], "status": "active", "balance": current["balance"],
+        {"id": gift["id"], "status": "active", "deleted_at": None, "balance": current["balance"],
          "uses.booking_id": {"$ne": booking_id},
          "$or": [{"expires": {"$gte": date.today().isoformat()}}, {"expires": None}]},
         {"$set": {"balance": balance, "status": "utilisee" if balance == 0 else "active"}, "$push": {"uses": {

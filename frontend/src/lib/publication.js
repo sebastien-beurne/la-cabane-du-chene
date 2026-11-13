@@ -8,7 +8,7 @@ export function usePublicationRefresh(refresh){
    Promise.resolve(refresh()).catch(()=>{});
   };
   const storage=e=>{if(e.key==='site-content-published')update();};
-  window.addEventListener('focus',update);document.addEventListener('visibilitychange',update);window.addEventListener('storage',storage);
-  return()=>{window.removeEventListener('focus',update);document.removeEventListener('visibilitychange',update);window.removeEventListener('storage',storage);};
+  window.addEventListener('pageshow',update);window.addEventListener('focus',update);document.addEventListener('visibilitychange',update);window.addEventListener('storage',storage);
+  return()=>{window.removeEventListener('pageshow',update);window.removeEventListener('focus',update);document.removeEventListener('visibilitychange',update);window.removeEventListener('storage',storage);};
  },[refresh]);
 }

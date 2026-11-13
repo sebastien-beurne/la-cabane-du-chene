@@ -9,6 +9,7 @@ import { inputCls } from "@/components/site/FormBits";
 import SchemaEditor from "@/components/admin/SchemaEditor";
 import { PRICING, CONTENT, GUIDE_BLOCKS, SETTINGS, HERO, REVIEWS, VIDEOS } from "@/components/admin/schemas";
 import { HeroPreview, PromoCodes } from "@/components/admin/Extras";
+import ClientsAdmin from "@/components/admin/ClientsAdmin";
 import MessagesAdmin from "@/components/admin/MessagesAdmin";
 import { BookingManager } from "@/components/admin/BookingManager";
 import CalendarAdmin from "@/components/admin/CalendarAdmin";
@@ -23,7 +24,7 @@ import LaunchChecklist from "@/components/admin/LaunchChecklist";
 import ThemePicker from '@/components/admin/ThemePicker';
 
 const GROUPS = [
-  ["Activité", [["preparation", "Préparation"], ["bord", "Tableau de bord"], ["demandes", "Réservations"], ["calendrier", "Calendrier"], ["messages", "Messages"], ["emails", "E-mails auto"], ["cadeaux", "Cartes cadeaux"]]],
+  ["Activité", [["preparation", "Préparation"], ["bord", "Tableau de bord"], ["demandes", "Réservations"], ["clients", "Clients"], ["calendrier", "Calendrier"], ["messages", "Messages"], ["emails", "E-mails auto"], ["cadeaux", "Cartes cadeaux"]]],
   ["Contenu du site", [["themes", "Thèmes"], ["photos", "Photos"], ["videos", "Vidéos"], ["avis", "Avis"], ["visuel", "Fond d'accueil"], ["contenus", "Textes"], ["livret", "Livret d'accueil"], ["guide", "Guide"]]],
   ["Paramètres", [["tarifs", "Tarifs & options"], ["promos", "Codes promo"], ["reglages", "Réglages & liens iCal"]]],
 ];
@@ -148,6 +149,7 @@ export default function Admin() {
         {tab === "livret" && <BookletAdmin />}
         {tab === "emails" && <AutoEmailsAdmin />}
         {tab === "messages" && <MessagesAdmin />}
+        {tab === "clients" && <ClientsAdmin />}
         {tab === "calendrier" && <CalendarAdmin goTo={setTab} />}
         {tab === "themes" && <ThemePicker />}{tab === "photos" && <PhotosAdmin />}
         {tab === "promos" && <PromoCodes />}

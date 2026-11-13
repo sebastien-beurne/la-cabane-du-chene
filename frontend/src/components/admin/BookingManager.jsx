@@ -1,3 +1,4 @@
+import {StayPreview} from "./StayMessages";
 import { useCallback, useEffect, useState } from "react";
 import { format, parseISO } from "date-fns";
 import { fr } from "date-fns/locale";
@@ -73,8 +74,10 @@ function BookingCard({ b, reload }) {
   const q = b.quote;
   const external = (b.source || "direct") !== "direct";
   const toggle = (p) => setPanel((x) => (x === p ? "" : p));
-  const patch = async (body, msg) => { try { await http.patch(`/admin/booking-requests/${b.id}`, body); toast.success(msg); reload(); } catch (e) { toast.error(errMsg(e)); } };
+  const patch = async (body, msg) => { try { const r=await http.patch(`/admin/booking-requests/${b.id}`, body); if(body.status==='refusee'&&r.data.refusal_notification?.status!=='envoye'&&r.data.refusal_notification?.status!=='livre')toast.info('Réservation refusée. Notification client non envoyée : consultez son statut ci-dessous.');else toast.success(msg); reload(); } catch (e) { toast.error(errMsg(e)); } };
+  const retryRefusal=async()=>{try{const r=await http.post(`/admin/booking-requests/${b.id}/refusal-email`);toast[r.data.refusal_notification?.status==='envoye'?'success':'info'](r.data.refusal_notification?.status==='envoye'?'Notification prise en charge':'Notification enregistrée ; consultez son statut');reload();}catch(e){toast.error(errMsg(e));}};
   const setStatus = (status) => {
+    if(status==='refusee'&&!window.confirm('Refuser cette demande et notifier le client par e-mail ?'))return;
     if (status === "annulee" && !window.confirm(external ? "Annuler ici ne l'annule PAS sur la plateforme : faites-le aussi sur la plateforme concernée. Continuer ?" : "Annuler cette réservation ? Aucun remboursement automatique ne sera fait.")) return;
     patch({ status }, "Statut mis à jour");
   };
@@ -102,6 +105,7 @@ function BookingCard({ b, reload }) {
         {b.payment_method && <span className="rounded-full border border-[#2D4A3E]/25 px-3 py-1 text-xs" data-testid={`pay-method-${b.id}`}>{b.payment_method === "virement" ? `Virement · réf. ${b.transfer_ref || "—"}${b.transfer_sent ? " · instructions envoyées" : ""}` : "Carte bancaire"}</span>}
         {b.payment_status === "virement_attendu" && b.balance_due > 0 && <button onClick={confirmTransfer} className="rounded-full bg-[#2D4A3E] px-3 py-1 text-xs font-semibold text-white" data-testid={`confirm-transfer-${b.id}`}>Confirmer la réception du virement</button>}
       </div>
+      {b.status==='refusee'&&<div className="mt-3 rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-amber-950" data-testid={`refusal-notification-${b.id}`}><p>{['envoye','livre'].includes(b.refusal_notification?.status)?'Notification de refus prise en charge pour le client':b.refusal_notification?.error||'Le client n’a pas encore été notifié de ce refus.'}</p>{!['envoye','livre'].includes(b.refusal_notification?.status)&&<button type="button" className="mt-2 underline font-semibold" onClick={retryRefusal} data-testid={`retry-refusal-${b.id}`}>{b.refusal_notification?'Réessayer la notification':'Notifier le client du refus'}</button>}<p className="mt-1 text-xs">Détail dans Messages → Envoyés, filtre « Mails clients ».</p></div>}
       <h3 className="mt-3 font-display text-2xl text-[#1B2B24]">{b.name}</h3>
       <p className="text-[#1B2B24]">{d(b.check_in)} → {d(b.check_out)} · {b.nights} nuit{b.nights > 1 ? "s" : ""} · {b.guests} pers.</p>
       <div className="mt-3 flex flex-wrap gap-2">
@@ -136,10 +140,13 @@ function BookingCard({ b, reload }) {
             <button onClick={() => ask("solde")} className="rounded-full bg-[#2D4A3E] px-4 py-2.5 text-sm font-semibold text-white" data-testid={`ask-balance-${b.id}`}>Demander le solde ({eur(b.balance_due)})</button>
           </>
         )}
-        {b.email && <button onClick={recap} className={btn} data-testid={`recap-${b.id}`}><Send size={15} /> Récapitulatif</button>}
+        {b.email && <><button type="button" disabled={b.status!=="confirmee"} onClick={()=>toggle("arrival")} className={btn} data-testid={`booking-arrival-${b.id}`}><Send size={15}/> Envoyer les informations d’arrivée</button>
+        <button type="button" disabled={b.status!=="confirmee"} onClick={()=>toggle("welcome")} className={btn} data-testid={`booking-welcome-${b.id}`}><Mail size={15}/> Message de bienvenue</button>
+        <button onClick={recap} className={btn} data-testid={`recap-${b.id}`}><Send size={15} /> Récapitulatif</button></>}
         <button onClick={() => toggle("hist")} className={btn} data-testid={`history-${b.id}`}><History size={15} /> Historique</button>
         <button onClick={del} className="grid h-10 w-10 place-items-center rounded-full border border-red-200 text-red-700" aria-label="Supprimer"><Trash2 size={15} /></button>
       </div>
+      {["arrival","welcome"].includes(panel)&&<StayPreview key={panel} booking={b} kind={panel} onSent={reload}/>}
       {panel === "edit" && <EditForm b={b} onSaved={() => { setPanel(""); reload(); }} />}
       {panel === "pay" && <PaymentForm b={b} onSaved={() => { setPanel(""); reload(); }} />}
       {panel === "hist" && (
@@ -195,7 +202,7 @@ export function BookingManager() {
   return (
     <div className="space-y-4" data-testid="booking-manager">
       <div className="flex flex-wrap items-center gap-2">
-        {[["avenir", "À venir"], ["toutes", "Toutes"], ["annulees", "Annulées"]].map(([k, l]) => (
+        {[["avenir", "À venir"], ["toutes", "Toutes"], ["annulees", "Annulées & refusées"]].map(([k, l]) => (
           <button key={k} onClick={() => setFilter(k)} className={`rounded-full px-4 py-2 text-sm ${filter === k ? "bg-[#2D4A3E] text-white" : "bg-white"}`} data-testid={`filter-${k}`}>{l}</button>
         ))}
         <button onClick={() => setAdding((a) => !a)} className="ml-auto inline-flex items-center gap-1 rounded-full bg-[#B35432] px-4 py-2 text-sm font-semibold text-white" data-testid="add-booking"><Plus size={15} /> Ajouter</button>

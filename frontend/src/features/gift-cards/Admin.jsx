@@ -4,6 +4,7 @@ import { Copy, Mail, Plus, Trash2 } from "lucide-react";
 import { inputCls } from "./ui";
 
 const ST = {
+  supprimee: ["Corbeille · inutilisable", "bg-gray-200 text-gray-800"],
   active: ["Active", "bg-[rgb(var(--gift-primary-rgb))] text-white"], utilisee: ["Utilisée", "bg-gray-200 text-gray-800"], expiree: ["Expirée", "bg-[#D4A373] text-[rgb(var(--gift-ink-rgb))]"],
   annulee: ["Annulée", "bg-red-100 text-red-800"], en_attente: ["Paiement non finalisé", "bg-[#EFEAE1] text-[#6B4E3D]"],
   virement_attendu: ["Virement en attente", "bg-[#D4A373]/40 text-[#6B4E3D]"],
@@ -48,7 +49,7 @@ function CardRow({ g, reload }) {
   const [label, cls] = ST[g.status] || ST.active;
   const patch = async (body, msg) => { try { await http.patch(`/admin/gift-cards/${g.id}`, body); toast.success(msg); reload(); } catch (x) { toast.error(errMsg(x)); } };
   const resend = async () => { try { const r = await http.post(`/admin/gift-cards/${g.id}/resend`); toast[r.data.ok ? "success" : "error"](r.data.ok ? "E-mail renvoyé" : "Échec de l'envoi"); } catch (x) { toast.error(errMsg(x)); } };
-  const del = async () => { if (window.confirm("Supprimer cette commande non payée ?")) { try { await http.delete(`/admin/gift-cards/${g.id}`); reload(); } catch (x) { toast.error(errMsg(x)); } } };
+  const del = async () => { if (!g.deleted_at && !window.confirm("Déplacer cette carte dans la corbeille ? Elle deviendra inutilisable. Le solde et l’historique seront conservés ; aucun remboursement ne sera effectué.")) return;try { await http.post(`/admin/gift-cards/${g.id}/${g.deleted_at?'restore':'trash'}`); reload(); } catch (x) { toast.error(errMsg(x)); } };
   const received = async () => {
     if (!window.confirm(`Confirmer la réception du virement de ${eur(g.amount)} (réf. ${g.transfer_ref}) ? La carte sera créée et envoyée à l'acheteur.`)) return;
     try { const r = await http.post(`/admin/gift-cards/${g.id}/transfer-received`); toast.success(`Carte ${r.data.code} activée${r.data.email_sent ? " et envoyée" : " (échec de l'e-mail : utilisez Renvoyer)"}`); reload(); } catch (x) { toast.error(errMsg(x)); }
@@ -67,7 +68,7 @@ function CardRow({ g, reload }) {
       <p className="text-xs text-[#526058]">Pour {g.recipient_name}{g.buyer_name ? ` · de ${g.buyer_name}` : ""}{g.buyer_email ? ` (${g.buyer_email})` : ""}</p>
       {(g.uses || []).length > 0 && <p className="mt-1 text-xs text-[#526058]">Utilisée : {g.uses.map((u) => `${eur(u.amount)} le ${day(u.at)}`).join(", ")}</p>}
       {g.refund_received && <p role="status" className="mt-3 text-sm text-red-700">Remboursement Stripe détecté : carte bloquée, régularisation à vérifier.</p>}
-      {g.code && !g.refund_received && (
+      {g.code && !g.refund_received && !g.deleted_at && (
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <input inputMode="decimal" value={bal} onChange={(e) => setBal(e.target.value)} className="w-24 rounded-md border border-[rgb(var(--gift-primary-rgb))]/25 px-3 py-2 text-sm" aria-label="Solde" data-testid={`gift-balance-${g.code}`} />
           <button onClick={() => patch({ balance: Number(String(bal).replace(",", ".")) }, "Solde mis à jour")} className="rounded-full border border-[rgb(var(--gift-primary-rgb))]/30 px-3 py-2 text-xs">Corriger le solde</button>
@@ -76,8 +77,8 @@ function CardRow({ g, reload }) {
           {g.buyer_email && <button onClick={resend} className="inline-flex items-center gap-1 rounded-full border border-[rgb(var(--gift-primary-rgb))]/30 px-3 py-2 text-xs"><Mail size={13} /> Renvoyer</button>}
         </div>
       )}
-      {g.status === "virement_attendu" && <button onClick={received} className="mt-3 rounded-full bg-[rgb(var(--gift-primary-rgb))] px-4 py-2 text-xs font-semibold text-white" data-testid={`gift-transfer-received-${g.id}`}>Confirmer la réception du virement</button>}
-      {!g.code && ["en_attente", "virement_attendu"].includes(g.status) && <button onClick={del} className="mt-2 inline-flex items-center gap-1 text-xs text-red-700" data-testid={`gift-delete-${g.code || g.id}`}><Trash2 size={13} /> Supprimer</button>}
+      {!g.deleted_at && g.status === "virement_attendu" && <button onClick={received} className="mt-3 rounded-full bg-[rgb(var(--gift-primary-rgb))] px-4 py-2 text-xs font-semibold text-white" data-testid={`gift-transfer-received-${g.id}`}>Confirmer la réception du virement</button>}
+      {<button onClick={del} className="mt-2 inline-flex items-center gap-1 text-xs text-red-700" data-testid={`gift-delete-${g.code || g.id}`}><Trash2 size={13} /> {g.deleted_at?"Restaurer":"Supprimer"}</button>}
     </article>
   );
 }
@@ -88,19 +89,20 @@ export default function GiftCardsAdmin() {
   const [error, setError] = useState("");
   const [adding, setAdding] = useState(false);
   const [showPending, setShowPending] = useState(false);
-  const load = useCallback(() => http.get("/admin/gift-cards").then((r) => setList(Array.isArray(r.data) ? r.data : [])).then(() => setError("")).catch((x) => setError(errMsg(x))), [http]);
+  const [trash,setTrash]=useState(false);
+  const load = useCallback(() => http.get("/admin/gift-cards", {params:{trash}}).then((r) => setList(Array.isArray(r.data) ? r.data : [])).then(() => setError("")).catch((x) => setError(errMsg(x))), [http,trash]);
   useEffect(() => { load(); }, [load]);
   if (error) return <p role="alert">{error} <button onClick={load}>Réessayer</button></p>;
   if (!list) return <p className="text-sm text-[#526058]">Chargement…</p>;
   const pending = list.filter((g) => g.status === "en_attente").length;
-  const shown = list.filter((g) => showPending || g.status !== "en_attente");
+  const shown = list.filter((g) => trash || showPending || g.status !== "en_attente");
   return (
-    <div className="space-y-4" data-testid="gift-admin">
+    <div className="space-y-4" data-testid="gift-admin"><button className="rounded-full border px-4 py-2 text-sm" data-testid="gift-trash-toggle" onClick={()=>{setTrash(!trash);setAdding(false);}}>{trash?"Retour aux cartes cadeaux":"Corbeille des cartes cadeaux"}</button>
       <div className="flex flex-wrap items-center gap-2">
         <p className="text-sm text-[#526058]">Les clients achètent sur la page « Carte cadeau ». Le code se saisit dans le champ « Code promo ou bon cadeau » à la réservation : le montant est compté comme un paiement (recrédité si la demande est refusée ou annulée).</p>
-        <button onClick={() => setAdding((a) => !a)} className="ml-auto inline-flex items-center gap-1 rounded-full bg-[rgb(var(--gift-accent-rgb))] px-4 py-2 text-sm font-semibold text-white" data-testid="gift-admin-add"><Plus size={15} /> Créer une carte</button>
+        <button disabled={trash} onClick={() => setAdding((a) => !a)} className="ml-auto inline-flex items-center gap-1 rounded-full bg-[rgb(var(--gift-accent-rgb))] px-4 py-2 text-sm font-semibold text-white" data-testid="gift-admin-add"><Plus size={15} /> Créer une carte</button>
       </div>
-      {adding && <NewCard onSaved={() => { setAdding(false); load(); }} />}
+      {adding && !trash && <NewCard onSaved={() => { setAdding(false); load(); }} />}
       {pending > 0 && <button onClick={() => setShowPending((v) => !v)} className="text-xs text-[rgb(var(--gift-primary-rgb))] underline" data-testid="gift-toggle-pending">{showPending ? "Masquer" : "Afficher"} les {pending} paiement(s) non finalisé(s)</button>}
       {!shown.length && <p className="rounded-md bg-white p-5 text-sm text-[#526058]" data-testid="gift-empty">Aucune carte cadeau pour le moment.</p>}
       {shown.map((g) => <CardRow key={g.id} g={g} reload={load} />)}

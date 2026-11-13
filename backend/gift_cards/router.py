@@ -22,6 +22,7 @@ def gen_code(prefix="CADEAU"):
 
 
 def public(g):
+    if g.get("deleted_at"): raise HTTPException(404, "Carte indisponible")
     keys = ("code", "type", "nights", "amount", "balance", "recipient_name", "buyer_name", "message", "expires", "status", "email_sent", "currency")
     return {**{k: g.get(k) for k in keys}, "status": state(g)}
 
@@ -115,7 +116,7 @@ def build_router(db, current_user, *, config: GiftConfig, price_for_stay, get_ba
         while await db.gift_cards.find_one({"code": code}):
             code = gen_code(config.code_prefix)
         expires = (date.today() + timedelta(days=g.get("validity_days") or config.validity_days)).isoformat()
-        res = await db.gift_cards.update_one({"id": g["id"], "status": g["status"], "refund_received": {"$ne": True}},
+        res = await db.gift_cards.update_one({"id": g["id"], "status": g["status"], "refund_received": {"$ne": True}, "deleted_at": None},
                                              {"$set": {"status": "active", "code": code, "paid_at": now(), "expires": expires, **extra}})
         if not res.modified_count:
             return None
@@ -208,8 +209,8 @@ def build_router(db, current_user, *, config: GiftConfig, price_for_stay, get_ba
         return public(g)
 
     @r.get("/admin/gift-cards")
-    async def list_cards(user=Depends(current_user)):
-        rows = await db.gift_cards.find({}, {"_id": 0, "session_id": 0}).sort("created_at", -1).to_list(1000)
+    async def list_cards(trash: bool = False, user=Depends(current_user)):
+        rows = await db.gift_cards.find({"deleted_at": {"$ne": None} if trash else None}, {"_id": 0, "session_id": 0}).sort("created_at", -1).to_list(1000)
         return [{**g, "status": state(g)} for g in rows]
 
     @r.post("/admin/gift-cards")
@@ -239,7 +240,7 @@ def build_router(db, current_user, *, config: GiftConfig, price_for_stay, get_ba
                 raise HTTPException(400, "Solde invalide") from exc
         if "status" in upd and upd["status"] not in ("active", "annulee", "utilisee"):
             raise HTTPException(status_code=400, detail="Statut inconnu")
-        res = await db.gift_cards.update_one({"id": gid, "code": {"$ne": None}, "refund_received": {"$ne": True}}, {"$set": upd})
+        res = await db.gift_cards.update_one({"id": gid, "code": {"$ne": None}, "refund_received": {"$ne": True}, "deleted_at": None}, {"$set": upd})
         if not res.matched_count:
             raise HTTPException(status_code=404, detail="Carte introuvable")
         return await db.gift_cards.find_one({"id": gid}, {"_id": 0, "session_id": 0})
@@ -247,7 +248,7 @@ def build_router(db, current_user, *, config: GiftConfig, price_for_stay, get_ba
     @r.post("/admin/gift-cards/{gid}/resend")
     async def resend(gid: str, user=Depends(current_user)):
         g = await db.gift_cards.find_one({"id": gid}, {"_id": 0})
-        if not g or not g.get("code"):
+        if not g or g.get("deleted_at") or not g.get("code"):
             raise HTTPException(status_code=404, detail="Carte introuvable")
         if not g.get("buyer_email"):
             raise HTTPException(status_code=400, detail="Aucune adresse e-mail pour cette carte")
@@ -257,13 +258,38 @@ def build_router(db, current_user, *, config: GiftConfig, price_for_stay, get_ba
 
     @r.post("/admin/gift-cards/{gid}/transfer-received")
     async def transfer_received(gid: str, user=Depends(current_user)):
-        g = await db.gift_cards.find_one({"id": gid, "status": "virement_attendu"}, {"_id": 0})
+        g = await db.gift_cards.find_one({"id": gid, "status": "virement_attendu", "deleted_at": None}, {"_id": 0})
         if not g:
             raise HTTPException(status_code=404, detail="Aucun virement en attente pour cette carte")
         g = await activate(g, {"transfer_received": now()})
         if not g:
             raise HTTPException(status_code=409, detail="Carte déjà activée")
         return {k: v for k, v in g.items() if k != "session_id"}
+
+    @r.post("/admin/gift-cards/{gid}/trash")
+    async def trash_card(gid: str, user=Depends(current_user)):
+        card = await db.gift_cards.find_one({"id": gid})
+        if not card: raise HTTPException(404, "Carte introuvable")
+        if card.get("deleted_at"): return {"ok": True}
+        if card.get("session_id") and card.get("status") == "en_attente":
+            # Closing checkout prevents a payment after archiving; no refund is initiated.
+            try:
+                session = await asyncio.to_thread(stripe.checkout.Session.expire, card["session_id"])
+            except stripe.error.StripeError:
+                session = await asyncio.to_thread(stripe.checkout.Session.retrieve, card["session_id"])
+            if session.payment_status == "paid":
+                await fulfill(card["session_id"])
+                raise HTTPException(409, "Paiement reçu : vérifiez la carte actualisée avant de la supprimer")
+            if session.status != "expired": raise HTTPException(409, "Le paiement doit être expiré avant suppression")
+        await db.gift_cards.update_one({"id": gid, "deleted_at": None}, {"$set": {"deleted_at": now(), "deleted_by": user.get("email", "proprietaire")}})
+        return {"ok": True}
+
+    @r.post("/admin/gift-cards/{gid}/restore")
+    async def restore_card(gid: str, user=Depends(current_user)):
+        card = await db.gift_cards.find_one({"id": gid})
+        if not card: raise HTTPException(404, "Carte introuvable")
+        await db.gift_cards.update_one({"id": gid}, {"$unset": {"deleted_at": "", "deleted_by": ""}})
+        return {"ok": True}
 
     @r.delete("/admin/gift-cards/{gid}")
     async def delete_card(gid: str, user=Depends(current_user)):

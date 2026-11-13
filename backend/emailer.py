@@ -1,3 +1,5 @@
+from mail_journal import record_blocked
+from pymongo.errors import DuplicateKeyError
 import os
 import re
 import ipaddress
@@ -112,10 +114,7 @@ async def send_email(*, to: str, subject: str, html: str, lang: str = "fr", kind
     Journal statuses: en_cours -> envoye (provider returned an id) | echec. The provider exposes no delivery
     events, so 'livre' is never set without proof."""
     if os.environ.get("EMAIL_DELIVERY_MODE") == "disabled" or not EMAIL_KEY:
-        if db is not None:
-            await db.email_log.insert_one({"id": str(uuid.uuid4()), "to": to, "subject": subject,
-                "html": html, "kind": kind, "category": category, "ref": ref,
-                "status": "echec", "error": "Envoi désactivé dans cet environnement", "created_at": _now(), "updated_at": _now()})
+        await record_blocked(db,to=to,subject=subject,html=html,lang=lang,kind=kind,category=category,ref=ref,dedupe_key=dedupe_key)
         return False
     if lang and lang != "fr":
         try:
@@ -126,7 +125,8 @@ async def send_email(*, to: str, subject: str, html: str, lang: str = "fr", kind
     log_id = None
     if db is not None:
         if dedupe_key:
-            prev = await db.email_log.find_one({"dedupe_key": dedupe_key}, {"_id": 0, "id": 1, "status": 1})
+            prev = await db.email_log.find_one({"dedupe_key": dedupe_key}, {"_id": 0, "id": 1, "status": 1, "deleted_at": 1})
+            if prev and prev.get("deleted_at"): return False
             if prev and prev["status"] in ("envoye", "livre", "en_cours"):
                 return prev["status"] != "en_cours"
             log_id = prev["id"] if prev else None
@@ -135,13 +135,19 @@ async def send_email(*, to: str, subject: str, html: str, lang: str = "fr", kind
                "lang": lang or "fr", "status": "en_cours", "error": "", "provider_id": None, "updated_at": _now()}
         try:
             if log_id:
-                await db.email_log.update_one({"id": log_id}, {"$set": rec, "$inc": {"attempts": 1}})
+                claim = await db.email_log.update_one({"id": log_id, "deleted_at": None, "status": {"$in": ["echec", "non_envoye"]}}, {"$set": rec, "$inc": {"attempts": 1}})
+                if not claim.modified_count:
+                    current = await db.email_log.find_one({"id":log_id}) or {}
+                    return current.get("status") in ("envoye","livre")
             else:
                 log_id = str(uuid.uuid4())
                 await db.email_log.insert_one({**rec, "id": log_id, "dedupe_key": dedupe_key, "attempts": 1, "created_at": _now()})
+        except DuplicateKeyError:
+            current = await db.email_log.find_one({"dedupe_key":dedupe_key}) or {}
+            return current.get("status") in ("envoye","livre")
         except Exception as e:
             logger.error(f"Email journal error: {e}")
-            log_id = None
+            return False
     ok, provider_id, error = False, None, ""
     try:
         _assert_safe_email(subject, html)

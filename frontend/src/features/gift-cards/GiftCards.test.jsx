@@ -76,9 +76,9 @@ test("an admin loading error is visible rather than shown as an empty list", asy
   expect(container.textContent).not.toContain("Aucune carte cadeau");
 });
 
-test("activated cards have no delete button", async () => {
+test("activated cards can be moved to a restorable trash", async () => {
   await render(<GiftCardsAdmin />, { api: api({ get: jest.fn(async () => ({ data: [{ ...card, id: "paid", uses: [] }] })) }) });
-  expect(container.querySelector('[data-testid="gift-delete-CADEAU-TEST-TEST"]')).toBeNull();
+  expect(container.querySelector('[data-testid="gift-delete-CADEAU-TEST-TEST"]')).not.toBeNull();
 });
 
 test("refunded cards show review information and cannot be reactivated in the UI", async () => {
