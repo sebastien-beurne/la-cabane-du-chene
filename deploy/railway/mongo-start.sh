@@ -20,7 +20,12 @@ for attempt in {1..60}; do
     // A loopback member avoids Railway DNS pointing at the previous container during restart.
     // The app intentionally uses directConnection=true against the private service hostname.
     let config;
-    try { config = rs.conf(); } catch(e) {
+    try {
+      config = rs.conf();
+      // Some mongosh versions return an error document instead of throwing it.
+      if (!config?.members?.length) throw (config || {code:94});
+    } catch(e) {
+      config = undefined;
       // With keyFile authentication, a fresh node can reject rs.conf with
       // Unauthorized (13) before the localhost bootstrap exception is used.
       // Only attempt bootstrap when authentication has not succeeded; no
@@ -35,7 +40,7 @@ for attempt in {1..60}; do
         if (initError.code !== 23) throw initError;
       }
     }
-    if (config && config.members[0].host !== "localhost:27017") {
+    if (config?.members?.[0] && config.members[0].host !== "localhost:27017") {
       config.members[0].host = "localhost:27017";
       config.version++;
       rs.reconfig(config, {force:true});
